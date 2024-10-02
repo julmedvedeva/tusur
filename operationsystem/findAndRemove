@@ -1,0 +1,25 @@
+cd "$1"
+touch "$2".txt
+echo "Создан файл $2.txt"
+touch "$2".pdf
+echo "Создан файл $2.pdf"
+touch "$2".doc
+echo "Создан файл $2.doc"
+touch a.doc
+echo "Создан файл a.doc"
+touch a.txt
+echo "Создан файл a.txt"
+mkdir exampleFolder
+cd exampleFolder
+touch a.doc
+echo "Создан файл exampleFolder/a.doc"
+touch a.txt
+echo "Создан файл exampleFolder/a.txt"
+touch "$2".doc
+echo "Создан файл exampleFolder/$2.doc"
+cd ..
+echo "Найдены следующие файлы..."
+find . -name "*$2*"
+echo "Удаление файлов..."
+find .  -not -name "*$2*"  -exec echo "Удаляю файл {}" \; -delete
+echo 'Файлы удалены'
