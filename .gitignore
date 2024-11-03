@@ -1,6 +1,3 @@
-*.dSYM
-.vscode
-
 дискретка
 информ технологии
 контрольные
@@ -11,3 +8,27 @@ docs
 informatics
 structure-and-algorimtics
 programming
+
+
+# Скомпилированные файлы
+*.exe
+*.o
+*.obj
+*.dSYM
+
+# Директории сборки
+build/
+bin/
+obj/
+Release
+Debug
+
+# Файлы настроек IDE
+.vscode/
+.idea/
+.vs
+# Логи
+*.log
+
+# Другие временные файлы
+*.tmp
