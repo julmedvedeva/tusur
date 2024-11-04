@@ -1,12 +1,15 @@
 *.dSYM
 .vscode
-
+.vs
+Release
+Debug
+*.pdb
+*.TMP
 дискретка
 информ технологии
 контрольные
 математика
 эвм и периферийные устройства
-data-base-mc-access
 docs
 informatics
 structure-and-algorimtics
