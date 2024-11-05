@@ -1,10 +1,4 @@
-*.dSYM
-.vscode
-.vs
-Release
-Debug
-*.pdb
-*.TMP
+# Folders
 дискретка
 информ технологии
 контрольные
@@ -14,3 +8,43 @@ docs
 informatics
 structure-and-algorimtics
 programming
+
+# Object files
+*.o
+*.obj
+
+# Executables
+*.exe
+*.out
+
+# Build directory
+/build/
+bin/
+Release
+Debug
+
+# IDE files
+.vscode/
+.idea/
+*.sln
+*.user
+.vs
+*.filters
+
+# Temporary files
+*.pdb
+*.obj
+*.idb
+*.sdf
+*.suo
+*.ncb
+*.log
+*.tlog
+*.dSYM
+*.user
+*.cache
+*.tmp
+*.ilk
+*.exe
+*.dll
+*.lib
