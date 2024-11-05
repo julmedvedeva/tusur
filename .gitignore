@@ -29,7 +29,7 @@ Debug
 *.sln
 *.user
 .vs
-*.filters
+*.vcxproj.user
 
 # Temporary files
 *.pdb
@@ -48,3 +48,4 @@ Debug
 *.exe
 *.dll
 *.lib
+~*
