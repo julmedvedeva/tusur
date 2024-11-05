@@ -1,34 +1,51 @@
+# Folders
 дискретка
 информ технологии
 контрольные
 математика
 эвм и периферийные устройства
-data-base-mc-access
 docs
 informatics
 structure-and-algorimtics
 programming
 
-
-# Скомпилированные файлы
-*.exe
+# Object files
 *.o
 *.obj
-*.dSYM
 
-# Директории сборки
-build/
+# Executables
+*.exe
+*.out
+
+# Build directory
+/build/
 bin/
-obj/
 Release
 Debug
 
-# Файлы настроек IDE
+# IDE files
 .vscode/
 .idea/
+*.sln
+*.user
 .vs
-# Логи
-*.log
+*.vcxproj.user
 
-# Другие временные файлы
+# Temporary files
+*.pdb
+*.obj
+*.idb
+*.sdf
+*.suo
+*.ncb
+*.log
+*.tlog
+*.dSYM
+*.user
+*.cache
 *.tmp
+*.ilk
+*.exe
+*.dll
+*.lib
+~*
