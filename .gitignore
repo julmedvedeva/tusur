@@ -49,3 +49,4 @@ Debug
 *.dll
 *.lib
 ~*
+/CppProperties.json
