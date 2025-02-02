@@ -1,3 +1,4 @@
+// main.h
 #pragma once
 #pragma warning(disable : 4996)
 #include <cstring>
@@ -6,23 +7,23 @@
 
 class Car {
 private:
-    char* brand_;
+    std::wstring brand_; // Используем std::wstring вместо wchar_t*
     int number_;
     float price_;
 
 public:
     Car(); // Конструктор по умолчанию
-    Car(const char* brand, int number, float price); // Конструктор с параметрами
+    Car(const wchar_t* brand, int number, float price); // Конструктор с параметрами
     virtual ~Car(); // Деструктор
 
     virtual void Print() const; // Метод вывода информации
     void Input(); // Метод ввода информации
 
     // Методы доступа (геттеры и сеттеры)
-    const char* GetBrand() const { return brand_; }
+    const wchar_t* GetBrand() const { return brand_.c_str(); }
     int GetNumber() const { return number_; }
     float GetPrice() const { return price_; }
-    void SetBrand(const char* brand);
+    void SetBrand(const wchar_t* brand);
     void SetNumber(int number);
     void SetPrice(float price);
 };
@@ -33,7 +34,7 @@ private:
 
 public:
     ACar(); // Конструктор по умолчанию
-    ACar(const char* brand, const std::string& mainInfo, int number, float price);
+    ACar(const wchar_t* brand, const std::string& mainInfo, int number, float price);
     virtual ~ACar(); // Деструктор
     void Print() const override; // Переопределяем метод Print
 };
@@ -41,7 +42,7 @@ public:
 class CCar : public Car {
 public:
     CCar(); // Конструктор по умолчанию
-    CCar(const char* brand, int number, float price);
+    CCar(const wchar_t* brand, int number, float price);
     virtual ~CCar(); // Деструктор
     void Print() const override; // Переопределяем метод Print
 };
