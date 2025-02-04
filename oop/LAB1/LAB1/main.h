@@ -1,4 +1,3 @@
-// main.h
 #pragma once
 #pragma warning(disable : 4996)
 #include <cstring>
