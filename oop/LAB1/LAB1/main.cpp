@@ -6,6 +6,9 @@
 #include <iostream>
 #include <limits> // Для numeric_limits
 #include <stdlib.h>
+#include <io.h> //for _setmode
+#include <fcntl.h> //for _O_U16TEXT
+
 
 using namespace std;
 
@@ -34,6 +37,7 @@ void Car::Input() {
         wcout << L"Введите марку машины: ";
         wstring brand;
         wcin >> brand;
+        //wcout << brand << endl;
 
         // Проверка на наличие хотя бы одной буквы и отсутствие только цифр
         bool hasLetter = false;
@@ -49,11 +53,12 @@ void Car::Input() {
         }
 
         // Условие для проверки валидности:
-        if (hasLetter) { // Проверяем, есть ли хотя бы одна буква (латиница или кириллица)
+        if (hasLetter && !hasOnlyDigits) { // Проверяем, есть ли хотя бы одна буква и не только цифры
             brand_ = brand; // Запоминаем марку
             break; // Ввод корректен, выходим из цикла
         }
         else {
+            wcout << brand << endl;
             wcout << L"Ошибка: марка должна содержать хотя бы одну букву и не может состоять только из цифр." << endl;
         }
     }
@@ -66,7 +71,7 @@ void Car::Input() {
             wcin.clear(); // Очищаем флаг ошибки
             wcin.ignore(numeric_limits<streamsize>::max(), L'\n'); // Игнорируем оставшиеся символы в буфере
             wcout << L"Ошибка: введите корректный номер машины." << endl;
-        }
+}
         else {
             break; // Ввод корректен, выходим из цикла
         }
@@ -101,8 +106,10 @@ void Car::SetPrice(float price) {
 }
 
 int main() {
-    int numberChoice;
     setlocale(LC_ALL, "Russian");
+    SetConsoleOutputCP(866);
+    int numberChoice;
+    //setlocale(LC_ALL, "Russian");
 
     // Статическое выделение памяти с использованием конструктора по умолчанию
     Car car1; // Использует конструктор по умолчанию
@@ -114,7 +121,7 @@ int main() {
     car1.SetNumber(2021);
     car1.SetPrice(15000.0);
 
-    wcout << L"\nОбновленная информация о машине car1:" << endl;
+    wcout << L"\nОб новленная информация о машине car1:" << endl;
     car1.Print();
 
     // Создаем динамический объект машины
