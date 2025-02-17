@@ -49,4 +49,4 @@ Debug
 *.dll
 *.lib
 ~*
-/CppProperties.json
+~*.vcxproj
