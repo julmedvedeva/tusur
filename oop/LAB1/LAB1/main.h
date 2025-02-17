@@ -6,7 +6,7 @@
 
 class Car {
 private:
-    std::wstring brand_; // Используем std::wstring вместо wchar_t*
+    std::wstring brand_; // Используем std::wstring
     int number_;
     float price_;
 
@@ -27,21 +27,14 @@ public:
     void SetPrice(float price);
 };
 
-class ACar : public Car {
+class AdditionalCar : public Car {
 private:
-    std::string mainInfo_;
+    const wchar_t* mainInfo_;
 
 public:
-    ACar(); // Конструктор по умолчанию
-    ACar(const wchar_t* brand, const std::string& mainInfo, int number, float price);
-    virtual ~ACar(); // Деструктор
+    AdditionalCar(); // Конструктор по умолчанию
+    AdditionalCar(const wchar_t* brand, const wchar_t* mainInfo, int number, float price);
+    virtual ~AdditionalCar(); // Деструктор
     void Print() const override; // Переопределяем метод Print
 };
 
-class CCar : public Car {
-public:
-    CCar(); // Конструктор по умолчанию
-    CCar(const wchar_t* brand, int number, float price);
-    virtual ~CCar(); // Деструктор
-    void Print() const override; // Переопределяем метод Print
-};

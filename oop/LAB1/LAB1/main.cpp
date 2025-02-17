@@ -103,6 +103,24 @@ void Car::SetPrice(float price) {
     price_ = price;
 }
 
+// Конструктор по умолчанию для AdditionalCar
+AdditionalCar::AdditionalCar()
+    : Car(L"unknown", 0, 0), mainInfo_(L"description") {
+}
+// Конструктор для класса AdditionalCar
+AdditionalCar::AdditionalCar(const wchar_t* brand, const wchar_t* mainInfo, int number, float price)
+    : Car(brand, number, price), mainInfo_(mainInfo) {}
+
+// Деструктор для AdditionalCar
+AdditionalCar::~AdditionalCar() {}
+
+// Метод вывода информации о машине 
+void AdditionalCar::Print() const {
+    Car::Print(); // Вызов метода Print базового класса
+    cout << "Краткое описание о машине:" << endl;
+    wcout << mainInfo_ << endl;
+}
+
 int main() {
     #ifdef _WIN32
         system("chcp 1251 > nul");
@@ -125,14 +143,14 @@ int main() {
     car1.Print();
 
     // Создаем динамический объект машины
-    Car* car2 = new Car(L"Рено", 2000, 1000.0); // Исправлено на L"Рено"
+    Car* car2 = new Car(L"Рено", 2000, 1000.0);
     wcout << L"Информация о машине car2:" << endl;
     car2->Print();
     delete car2;
 
     wcout << L"Выберите, что вы хотите сделать (введите номер):" << endl;
     wcout << L"1. Статическое выделение памяти с параметрами по умолчанию" << endl;
-    wcout << L"2. Статическое выделение памяти с переданными параметрами" << endl;
+    wcout << L"2. Статическое выделение памяти с переданными параметрами и наследованием" << endl;
     wcout << L"3. Динамическое выделение памяти с параметрами по умолчанию" << endl;
     wcout << L"4. Динамическое выделение памяти с переданными параметрами" << endl;
 
@@ -146,8 +164,13 @@ int main() {
     }
     else if (numberChoice == 2) {
         // Статическое выделение памяти с переданными параметрами
-        Car car2(L"Тойота", 2021, 15000.0); // Использует конструктор с параметрами
-        wcout << L"Информация о машине car2 (с параметрами):" << endl;
+        // Использование наследования
+        AdditionalCar car2(L"MiniCar", 
+            L"MiniCar A1 — это компактный и экономичный мини-автомобиль, идеально подходящий для городских условий. С его небольшими размерами и маневренностью, A1 легко справляется с узкими улицами и плотным трафиком. Оснащен современным 1.2-литровым двигателем, он обеспечивает отличную экономию топлива, что делает его идеальным выбором для ежедневных поездок.", 
+            2022,
+            15000.0
+        ); // Использует конструктор с параметрами
+        wcout << L"Информация о машине car2 (с параметрами и наследованием):" << endl;
         car2.Print();
     }
     else if (numberChoice == 3) {
