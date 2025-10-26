@@ -1,202 +1,167 @@
-﻿#define NOMINMAX 
+﻿#define NOMINMAX
 #include "main.h"
 #include <Windows.h>
-#include <cctype> // Для функции isalpha
-#include <cstring>
-#include <iostream>
-#include <limits> // Для numeric_limits
-#include <stdlib.h>
-#include <io.h> 
+#undef max
+#undef min
+#include <limits>
+#include <io.h>
 #include <fcntl.h>
 
 using namespace std;
 
-// Конструктор по умолчанию для Car
+// === Реализация класса Car ===
+
 Car::Car() : number_(0), price_(0), brand_(L"unknown") {}
 
-// Конструктор с параметрами для Car
 Car::Car(const wchar_t* brand, int number, float price)
     : number_(number), price_(price), brand_(brand) {
 }
 
-// Деструктор для Car
-Car::~Car() {}
+Car::~Car() {
+    wcout << L"[~Car] Вызван деструктор Car" << endl;
+}
 
-// Метод вывода информации о машине
+// ✅ Методы проверки и записи
+bool Car::SetBrand(const wchar_t* brand) {
+    if (brand == nullptr || wcslen(brand) == 0) {
+        wcout << L"Ошибка: марка не может быть пустой." << endl;
+        return false;
+    }
+    brand_ = brand;
+    return true;
+}
+
+bool Car::SetNumber(int number) {
+    if (number < 0) {
+        wcout << L"Ошибка: номер не может быть отрицательным." << endl;
+        return false;
+    }
+    number_ = number;
+    return true;
+}
+
+bool Car::SetPrice(float price) {
+    if (price < 0) {
+        wcout << L"Ошибка: цена не может быть отрицательной." << endl;
+        return false;
+    }
+    price_ = price;
+    return true;
+}
+
+// === Метод Input с использованием сеттеров ===
+void Car::Input() {
+    wstring brand;
+    while (true) {
+        wcout << L"Введите марку машины: ";
+        wcin >> brand;
+        if (SetBrand(brand.c_str())) break;
+    }
+
+    int num;
+    while (true) {
+        wcout << L"Введите номер машины: ";
+        wcin >> num;
+        if (wcin.fail()) {
+            wcin.clear();
+            wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
+            wcout << L"Ошибка: введите число." << endl;
+            continue;
+        }
+        if (SetNumber(num)) break;
+    }
+
+    float price;
+    while (true) {
+        wcout << L"Введите цену машины: ";
+        wcin >> price;
+        if (wcin.fail()) {
+            wcin.clear();
+            wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
+            wcout << L"Ошибка: введите число." << endl;
+            continue;
+        }
+        if (SetPrice(price)) break;
+    }
+}
+
+// === Вывод информации ===
 void Car::Print() const {
-    wcout << L"Машина:" << endl;
-    wcout << L"Марка: " << (brand_.empty() ? L"неизвестно" : brand_.c_str()) << endl;
+    wcout << L"Марка: " << brand_ << endl;
     wcout << L"Номер: " << number_ << endl;
     wcout << L"Цена: " << price_ << endl;
 }
 
-void Car::Input() {
-    // Ввод марки машины с валидацией
-    while (true) {
-        wcout << L"Введите марку машины: ";
-        wstring brand;
-        wcin >> brand;
-
-        bool hasLetter = false;
-        bool hasOnlyDigits = true;
-
-        for (wchar_t ch : brand) {
-            if (iswalpha(ch)) {
-                hasLetter = true;
-            }
-            if (!iswdigit(ch)) {
-                hasOnlyDigits = false;
-            }
-        }
-
-        // Условие для проверки валидности:
-        // Проверяем, есть ли хотя бы одна буква и не только цифры
-        if (hasLetter && !hasOnlyDigits) {
-            brand_ = brand; // Запоминаем марку
-            break; // Ввод корректен, выходим из цикла
-        }
-        else {
-            wcout << brand << endl;
-            wcout << L"Ошибка: марка должна содержать хотя бы одну букву и не может состоять только из цифр." << endl;
-        }
-    }
-
-    // Ввод номера машины с валидацией
-    while (true) {
-        wcout << L"Введите номер машины: ";
-        wcin >> number_;
-        if (wcin.fail() || number_ < 0) {
-            wcin.clear(); // Очищаем флаг ошибки
-            wcin.ignore(numeric_limits<streamsize>::max(), L'\n'); // Игнорируем оставшиеся символы в буфере
-            wcout << L"Ошибка: введите корректный номер машины." << endl;
-}
-        else {
-            break; // Ввод корректен, выходим из цикла
-        }
-    }
-
-    // Ввод цены машины с валидацией
-    while (true) {
-        wcout << L"Введите цену машины: ";
-        wcin >> price_;
-        if (wcin.fail() || price_ < 0) {
-            wcin.clear(); // Очищаем флаг ошибки
-            wcin.ignore(numeric_limits<streamsize>::max(), L'\n'); // Игнорируем оставшиеся символы в буфере
-            wcout << L"Ошибка: введите корректную цену машины." << endl;
-        }
-        else {
-            break; // Ввод корректен, выходим из цикла
-        }
-    }
-}
-
-// Реализация метода записи марки SetBrand
-void Car::SetBrand(const wchar_t* brand) {
-    brand_ = brand;
-}
-// Реализация метода записи года выпуска SetPrice
-void Car::SetNumber(int number) {
-    number_ = number;
-}
-// Реализация метода записи стоимости SetPrice
-void Car::SetPrice(float price) {
-    price_ = price;
-}
-
-// Конструктор по умолчанию для AdditionalCar
+// === Класс AdditionalCar ===
 AdditionalCar::AdditionalCar()
-    : Car(L"unknown", 0, 0), mainInfo_(L"description") {
+    : Car(L"unknown", 0, 0), mainInfo_(L"нет описания") {
 }
-// Конструктор для класса AdditionalCar
+
 AdditionalCar::AdditionalCar(const wchar_t* brand, const wchar_t* mainInfo, int number, float price)
-    : Car(brand, number, price), mainInfo_(mainInfo) {}
-
-// Деструктор для AdditionalCar
-AdditionalCar::~AdditionalCar() {}
-
-// Метод вывода информации о машине 
-void AdditionalCar::Print() const {
-    Car::Print(); // Вызов метода Print базового класса
-    cout << "Краткое описание о машине:" << endl;
-    wcout << mainInfo_ << endl;
+    : Car(brand, number, price), mainInfo_(mainInfo) {
 }
 
+AdditionalCar::~AdditionalCar() {
+    wcout << L"[~AdditionalCar] Вызван деструктор AdditionalCar" << endl;
+}
+
+void AdditionalCar::Print() const {
+    Car::Print();
+    wcout << L"Описание: " << mainInfo_ << endl;
+}
+
+// === Главная функция ===
 int main() {
-    #ifdef _WIN32
-        system("chcp 1251 > nul");
-    #endif
+#ifdef _WIN32
+    system("chcp 1251 > nul");
+#endif
     setlocale(LC_ALL, "Russian");
     SetConsoleOutputCP(866);
-    int numberChoice;
 
-    // Статическое выделение памяти с использованием конструктора по умолчанию
-    Car car1; // Использует конструктор по умолчанию
-    wcout << L"Информация о машине car1 (по умолчанию):" << endl;
-    car1.Print();
+    int choice;
+    wcout << L"Выберите вариант (1–4):" << endl;
+    wcout << L"1. Статическое выделение памяти (по умолчанию)\n";
+    wcout << L"2. Статическое выделение (с параметрами)\n";
+    wcout << L"3. Динамическое выделение (по умолчанию)\n";
+    wcout << L"4. Динамическое выделение (с параметрами)\n";
+    wcin >> choice;
 
-    // Используем сеттеры для изменения значений
-    car1.SetBrand(L"Тойота");
-    car1.SetNumber(2021);
-    car1.SetPrice(15000.0);
-
-    wcout << L"\nОб новленная информация о машине car1:" << endl;
-    car1.Print();
-
-    // Создаем динамический объект машины
-    Car* car2 = new Car(L"Рено", 2000, 1000.0);
-    wcout << L"Информация о машине car2:" << endl;
-    car2->Print();
-    delete car2;
-
-    wcout << L"Выберите, что вы хотите сделать (введите номер):" << endl;
-    wcout << L"1. Статическое выделение памяти с параметрами по умолчанию" << endl;
-    wcout << L"2. Статическое выделение памяти с переданными параметрами и наследованием" << endl;
-    wcout << L"3. Динамическое выделение памяти с параметрами по умолчанию" << endl;
-    wcout << L"4. Динамическое выделение памяти с переданными параметрами" << endl;
-
-    cin >> numberChoice;
-
-    if (numberChoice == 1) {
-        // Статическое выделение памяти с параметрами по умолчанию
-        Car car1; // Использует конструктор по умолчанию
-        wcout << L"Информация о машине car1 (по умолчанию):" << endl;
+    if (choice == 1) {
+        Car car1;
+        wcout << L"Информация о машине car1:" << endl;
         car1.Print();
     }
-    else if (numberChoice == 2) {
-        // Статическое выделение памяти с переданными параметрами
-        // Использование наследования
-        AdditionalCar car2(L"MiniCar", 
-            L"MiniCar A1 — это компактный и экономичный мини-автомобиль, идеально подходящий для городских условий. С его небольшими размерами и маневренностью, A1 легко справляется с узкими улицами и плотным трафиком. Оснащен современным 1.2-литровым двигателем, он обеспечивает отличную экономию топлива, что делает его идеальным выбором для ежедневных поездок.", 
-            2022,
-            15000.0
-        ); // Использует конструктор с параметрами
-        wcout << L"Информация о машине car2 (с параметрами и наследованием):" << endl;
+    else if (choice == 2) {
+       
+        Car car2(L"Ниссан", 1234, 18000.0);
+        wcout << L"Информация о машине car2 (статическая, с параметрами):" << endl;
         car2.Print();
+
+        AdditionalCar car3(L"MiniCar",
+            L"Компактный автомобиль для города.",
+            2024, 15000.0);
+        wcout << L"\nИнформация о машине car3 (наследник):" << endl;
+        car3.Print();
     }
-    else if (numberChoice == 3) {
-        // Динамическое выделение памяти с использованием конструктора по умолчанию
-        Car* car3 = new Car(); // Создаем объект с использованием конструктора по умолчанию
-        wcout << L"\nВведите информацию о машине car3:" << endl;
-        car3->Input(); // Ввод информации о машине
-        wcout << L"\nИнформация о машине car3:" << endl;
-        car3->Print(); // Вывод информации о машине
-        delete car3; // Освобождаем память
-    }
-    else if (numberChoice == 4) {
-        // Динамическое выделение памяти с переданными параметрами
-        Car* car4 = new Car(L"Форд", 2020, 20000.0); // Использует конструктор с параметрами
-        wcout << L"Информация о машине car4 (с параметрами):" << endl;
+    else if (choice == 3) {
+        Car* car4 = new Car();
+        car4->Input();
+        wcout << L"\nВведённая информация:" << endl;
         car4->Print();
-        delete car4; // Освобождаем память
+        delete car4;
+    }
+    else if (choice == 4) {
+        Car* car5 = new Car(L"Форд", 2020, 20000.0);
+        wcout << L"Информация о машине car5:" << endl;
+        car5->Print();
+        delete car5;
     }
     else {
-        wcout << L"Введено неизвестное число" << endl;
+        wcout << L"Некорректный выбор." << endl;
     }
 
-    // Добавлено ожидание ввода перед закрытием
-    wcout << L"Нажмите Enter, чтобы выйти...";
-    cin.ignore(); // Игнорируем символ новой строки, если он остался в буфере
-    cin.get(); // Ждем ввода пользователя
-
+    wcout << L"\nНажмите Enter, чтобы выйти...";
+    wcin.ignore();
+    wcin.get();
     return 0;
 }
