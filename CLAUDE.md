@@ -4,150 +4,246 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a university coursework repository (TUSUR) containing lab work and assignments for multiple computer science courses, organized by subject area. The repository uses mixed languages (Russian for documentation and comments, English for some code).
+This is a TUSUR University (Tomsk State University of Control Systems and Radioelectronics) academic coursework repository containing laboratory work for three core computer science courses:
 
-## Directory Structure
+- **Object-Oriented Programming (OOP)** - C++ labs demonstrating inheritance, polymorphism, and operator overloading
+- **Databases** - Microsoft Access database design and SQL
+- **Operating Systems** - C/POSIX systems programming (process management, signal handling)
 
-- `oop/` - Object-Oriented Programming labs (C++)
-  - `LAB1/`, `LAB2/` - Lab assignments with complete implementations
-  - `labwork1/` - Additional lab work
-  - Review documents and methodological materials included
+**Language Context**: Documentation and variable names are in Russian. Code uses Unicode/wide character support for Cyrillic text (Windows code page 1251).
 
-- `operationsystem/` - Operating Systems labs (C)
-  - Signal handling implementations (SIGINT, SIGQUIT)
-  - Process management and fork() demonstrations
-  - `labwork4/` contains signal handler implementations
-  - `generateProcesses/` - utility for process generation
+## Build Commands
 
-- `database/` - Database course labs (Microsoft Access)
-  - `ЛР1/` through `ЛР4/` - Lab reports with .accdb database files
-  - Each lab includes Word reports (.docx) and Access databases
+### OOP Labs (C++)
 
-- `data-base-mc-access/` - Additional database materials
-  - Contains cars.accdb and medical clinic database
-  - Lab reports and screenshots
+All OOP labs use Visual Studio 2022 with the v143 platform toolset.
 
-- `programming/` - Programming basics
-  - `pascal/` - Pascal language assignments
-  - JavaScript utilities
-
-- Other subject directories (not actively developed):
-  - `informatics/`, `structure-and-algorimtics/`
-  - `дискретка/`, `математика/`, `контрольные/`, etc.
-
-## Development Environment
-
-### C++ (OOP Labs)
-
-**Platform**: Windows-specific (uses Windows.h, console code pages)
-
-**Compilation**: Visual Studio project files present
-- `.sln`, `.vcxproj` files in operationsystem/
-- Windows console codepage handling (chcp 1251, SetConsoleOutputCP(866))
-
-**Character encoding**:
-- Wide character strings (wchar_t, wstring) used in LAB1
-- Regular char* in LAB2
-- UTF-8 and Windows-1251 encoding switching required
-
-**Key patterns**:
-- Class-based design with constructors, destructors, copy constructors
-- Operator overloading (type conversion, arithmetic operators)
-- Input validation with error handling
-- Dynamic and static memory allocation demonstrations
-
-### C (OS Labs)
-
-**Platform**: Unix/Linux (POSIX signals, fork, pause)
-
-**Compilation**: Standard GCC
+**Build LAB1 (Inheritance & Polymorphism):**
 ```bash
-gcc -o handle_sigusr1 operationsystem/labwork4/handle_sigusr1.c
+cd oop/LAB1
+msbuild LAB1.sln /p:Configuration=Debug /p:Platform=x86
+# Or for Release:
+msbuild LAB1.sln /p:Configuration=Release /p:Platform=x86
 ```
 
-**Key concepts demonstrated**:
-- Signal handling with sigaction()
-- Process creation with fork()
-- Signal masking and blocking
-- Multiple process coordination
+**Build LAB2 (Operator Overloading):**
+```bash
+cd oop/LAB2/LAB2
+msbuild LAB2.sln /p:Configuration=Debug /p:Platform=x86
+```
+
+**Run executables:**
+```bash
+# LAB1
+.\oop\LAB1\Debug\LAB1.exe
+# or
+.\oop\LAB1\x64\Debug\LAB1.exe
+
+# LAB2
+.\oop\LAB2\LAB2\Debug\LAB2.exe
+```
+
+**Supported platforms:** Win32 (x86), x64
+**Configurations:** Debug, Release
+
+### Operating Systems Labs (C)
+
+**Build generateProcesses (LAB1 - Process Creation):**
+```bash
+cd operationsystem/generateProcesses
+msbuild generateProcesses.sln /p:Configuration=Debug
+```
+
+**Build handle_sigusr1 (LAB4 - Signal Handling):**
+```bash
+cd operationsystem/handle_sigusr
+msbuild handle_sigusr.sln /p:Configuration=Debug
+```
+
+**Note:** OS labs use POSIX system calls (fork, signal handling) but are built with Visual Studio for Windows compatibility.
 
 ### Database Labs
 
-**Platform**: Microsoft Access (.accdb format)
-- No command-line build process
-- Open .accdb files directly in Microsoft Access
+Database labs use Microsoft Access (`.accdb` files) and require Microsoft Access or compatible database tools to open and modify.
 
-### Pascal Programming
+**Lab locations:**
+- `database/ЛР1/лабораторная 1.accdb`
+- `database/ЛР2/лабораторная 2.accdb`
+- `database/ЛР3/лабораторная 3.accdb`
+- `database/ЛР4/лабораторная 4.accdb`
 
-**Compilation**: Free Pascal Compiler (likely)
-```bash
-fpc programming/pascal/filename.pas
+## Code Architecture
+
+### OOP Lab Structure
+
+**LAB1** - Demonstrates basic OOP concepts:
+- Base class `Car` with encapsulation (private members: `brand_`, `number_`, `price_`)
+- Derived class `AdditionalCar` with additional field `mainInfo_`
+- Virtual destructor pattern
+- Polymorphism via virtual `Print()` method override
+- Input validation in setter methods
+- Wide character support (`wchar_t`, `wstring`) for Russian text
+
+**Key files:**
+- `oop/LAB1/LAB1/main.h` - Class declarations
+- `oop/LAB1/LAB1/main.cpp` - Implementation (~168 lines)
+
+**LAB2** - Advanced OOP with operator overloading:
+- `Car` class with deep copy semantics (copy constructor, copy assignment)
+- Type conversion operator: `operator double()` converts Car to price
+- Friend function: `operator+()` for adding car prices
+- `Group` container class (array-based dynamic collection)
+- Operator overloading: `operator[]()` for array-like access
+- Statistical methods: `Price()` and `Price(int limit)` for average calculations
+- Random data generation using `<random>` library
+
+**Key files:**
+- `oop/LAB2/LAB2/car.h` / `car.cpp` - Car class with operators (~76 lines)
+- `oop/LAB2/LAB2/group.h` / `group.cpp` - Group container (~74 lines)
+- `oop/LAB2/LAB2/main.cpp` - Test harness (~55 lines)
+
+### Operating Systems Lab Structure
+
+**generateProcesses (LAB1)** - Process creation and management:
+- Demonstrates `fork()` system call
+- Parent-child process relationships
+- Process ID tracking
+
+**Key file:** `operationsystem/generateProcesses/main.c` (~80 lines)
+
+**handle_sigusr1 (LAB4)** - Multi-process signal handling:
+- Parent creates 3 child processes with different signal handling strategies:
+  - **Process 1**: Handles SIGINT with timestamp output, ignores SIGQUIT
+  - **Process 2**: Handles SIGINT by continuing execution
+  - **Process 3**: Blocks SIGINT using `sigprocmask()`
+- Uses `sigaction()` for signal registration
+- Demonstrates signal masking and blocking
+- Process synchronization with `pause()`
+
+**Key file:** `operationsystem/handle_sigusr/handle_sigusr1.c` (~91 lines)
+
+## Coding Conventions
+
+### Naming Patterns
+
+- **Private members:** Trailing underscore (e.g., `brand_`, `price_`, `number_`)
+- **Classes:** PascalCase (Car, Group, AdditionalCar)
+- **Methods:** PascalCase (SetBrand, GetPrice, Print)
+- **Variables:** Mix of Russian and English, camelCase or snake_case
+
+### Memory Management
+
+- Explicit `new`/`delete` usage
+- Array deletion with `delete[]`
+- RAII-like patterns with destructors
+- Deep copy implementation in copy constructors
+
+### Character Encoding
+
+- Wide character types: `wchar_t`, `wstring`
+- Console I/O: `wcin`, `wcout`
+- Windows code page 1251 for Cyrillic support
+- String literals prefixed with `L` (e.g., `L"Автомобиль"`)
+
+### Error Handling
+
+- Input validation in setter methods
+- Stream error checking with `wcin.fail()`
+- Null pointer validation where applicable
+
+## Project Organization
+
+```
+tusur/
+├── oop/                    # Object-oriented programming labs
+│   ├── LAB1/              # Inheritance & polymorphism
+│   │   ├── LAB1.sln       # Visual Studio solution
+│   │   └── LAB1/          # Project directory
+│   │       ├── main.h     # Class declarations
+│   │       └── main.cpp   # Implementation
+│   ├── LAB2/              # Operator overloading
+│   │   └── LAB2/
+│   │       ├── LAB2.sln
+│   │       ├── car.h/cpp
+│   │       ├── group.h/cpp
+│   │       └── main.cpp
+│   └── материалы/         # Course materials (textbooks, references)
+├── database/              # Database design labs
+│   ├── ЛР1/              # Lab 1: Database fundamentals
+│   ├── ЛР2/              # Lab 2: Intermediate concepts
+│   ├── ЛР3/              # Lab 3: Advanced queries
+│   └── ЛР4/              # Lab 4: Complex operations
+└── operationsystem/       # Operating systems labs
+    ├── generateProcesses/ # LAB1: Process creation
+    └── handle_sigusr/     # LAB4: Signal handling
 ```
 
-## Working with Code
+## Documentation Structure
 
-### Character Encoding Issues
+Each lab follows a standard pattern:
+- **Source code** - Implementation files (.cpp, .c, .h)
+- **Lab reports** - Word documents (`Отчет лабораторная N.docx`)
+- **Supporting materials** - PDFs, FAQs, sample data
 
-**Windows C++ projects** require specific console setup:
-```cpp
-#ifdef _WIN32
-    system("chcp 1251 > nul");
-#endif
-setlocale(LC_ALL, "Russian");
-SetConsoleOutputCP(866);
-```
-
-**When editing C++ files**: Preserve the encoding declarations and wide character usage patterns.
-
-### Git Workflow
-
-The repository tracks lab work submissions. Check `.gitignore` for excluded patterns:
-- Build artifacts (*.exe, *.obj, *.o, Debug/, Release/)
-- IDE files (.vscode/, .idea/, *.user)
-- Compiled outputs (bin/)
-- Documentation files (*.doc - note that some .docx files ARE tracked)
-
-### Testing and Running
-
-**OOP Labs (C++)**:
-- Compile with Visual Studio or compatible Windows C++ compiler
-- Interactive console programs - test all menu options
-- Verify destructor calls in output
-
-**OS Labs (C)**:
-- Compile on Unix/Linux system
-- Test signal handling with `kill -SIGINT <pid>`
-- Verify process creation and signal propagation
-
-**Database Labs**:
-- Open in Microsoft Access
-- No automated testing - manual verification of queries and forms
-
-## MCP Integration
-
-This repository is configured to use **Context7 MCP** for enhanced code context and navigation.
-
-### Context7 MCP Setup
-
-Context7 provides semantic code understanding across the repository. When working with code:
-
-- **IMPORTANT: Always query Context7 MCP FIRST** when handling any request that involves understanding, searching, or navigating code in this repository
-- Use Context7 to understand relationships between classes and functions across different lab assignments
-- Leverage semantic search to find similar implementations across different subjects
-- Get better context when working with multi-file projects (e.g., OOP LAB2 with separate header and implementation files)
-
-### Recommended MCP Usage
-
-**For OOP labs**: Use Context7 to understand class hierarchies and inheritance patterns (e.g., Car → AdditionalCar in LAB1)
-
-**For OS labs**: Query Context7 to find signal handling patterns and process management examples across different lab works
-
-**For cross-subject work**: Context7 can help identify similar algorithmic patterns between Pascal, C, and C++ implementations
+**Academic attribution:** Student name Медведева Ю.Е. (Medvedeva Yu.E.) appears in lab reports.
 
 ## Important Notes
 
-- **Language**: Comments and variable names mix Russian and English
-- **Platform dependencies**: OOP labs are Windows-specific, OS labs are Unix/Linux
-- **Reports**: Lab reports (.docx) document implementation and results
-- **Review files**: "Рецензия" documents contain instructor feedback
-- **Methodological materials**: PDF files contain assignment descriptions and requirements
+### Visual Studio Configuration
+
+- **Platform Toolset:** v143 (Visual Studio 2022)
+- **Character Set:** Unicode
+- **Output Type:** Console Application
+- **Windows SDK:** Latest installed version
+- **C++ Language Standard:** Default (C++14 or later)
+
+### Console Configuration
+
+OOP labs require Windows console setup for Russian text:
+```cpp
+SetConsoleCP(1251);        // Set input code page
+SetConsoleOutputCP(1251);  // Set output code page
+```
+
+### Git Ignore Patterns
+
+The repository's `.gitignore` excludes build artifacts but **some `.sln` files are still tracked** (exceptions to the ignore rule). When modifying build configuration:
+- Binary files (`.exe`, `.obj`, `.dll`) are ignored
+- IDE temporary files (`.vs`, `.user`, `.cache`) are ignored
+- Documentation files (`.doc`) are ignored but `.docx` files are tracked
+- Solution files may be tracked despite being in `.gitignore`
+
+### Database Access
+
+Microsoft Access databases (`.accdb`) require:
+- Microsoft Access 2016 or later, OR
+- Microsoft Access Database Engine (redistributable), OR
+- Compatible ODBC drivers for programmatic access
+
+## Common Development Workflows
+
+### Adding a new OOP lab
+
+1. Create new directory: `oop/LABN/`
+2. Create Visual Studio solution with Console Application template
+3. Configure project:
+   - Platform Toolset: v143
+   - Character Set: Unicode
+   - Add Windows console setup code for Russian text
+4. Follow naming conventions (trailing underscore for private members)
+5. Create corresponding report: `Отчет лабораторная N.docx`
+
+### Testing signal handling (OS labs)
+
+When working with signal handling code:
+- Use `kill -SIGINT <pid>` to send signals to processes
+- Check process IDs with `ps aux | grep handle_sigusr1`
+- Verify signal masks with debugging output
+- Remember: POSIX signals may behave differently on Windows vs Linux
+
+### Modifying database schemas
+
+1. Open `.accdb` file in Microsoft Access
+2. Make schema changes (tables, relationships, queries)
+3. Update corresponding lab report with schema diagrams
+4. Export sample data if needed (use `Пациенты.pdf` pattern for reference)

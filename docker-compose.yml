@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  context7-mcp:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - .:/workspace:ro
+    command: >
+      sh -c "npm install -g @context7/mcp-server &&
+             context7-mcp-server"
+    ports:
+      - "3000:3000"
+    environment:
+      - WORKSPACE_PATH=/workspace
+    restart: unless-stopped

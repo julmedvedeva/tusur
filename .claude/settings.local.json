@@ -1,11 +1,29 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch",
-      "WebFetch(domain:code.claude.com)",
-      "Bash(claude mcp add context7 -- npx -y @upstash/context7-mcp)",
-      "Bash(claude mcp list:*)",
-      "Bash(mkdir:*)"
+      "Bash(time:*)",
+      "Bash(powershell:*)",
+      "Bash(docker --version:*)",
+      "Bash(claude config:*)",
+      "Bash(claude mcp:*)",
+      "Bash(cmd /c C:UsersmedveDocumentstusurcontext7-docker.bat)",
+      "Bash(docker run --rm node:20-alpine sh -c \"npm search @context7\")",
+      "Bash(docker run --rm node:20-alpine sh -c \"npx -y @upstash/context7-mcp 2>&1 | head -20\")",
+      "Bash(setx PATH \"%PATH%;C:\\Users\\medve\\.local\\bin\")",
+      "Bash(del C:UsersmedveDocumentstusuradd-to-path.ps1)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(xargs:*)",
+      "Bash(tree:*)",
+      "Bash(where:*)",
+      "Bash(echo $env:PATH)",
+      "Bash(Test-Path \"C:\\Users\\medve\\.local\\bin\\claude.exe\")",
+      "Bash(where.exe:*)",
+      "Bash($env:PATH -split ';')",
+      "Bash(Select-String \"\\.local\\bin\")",
+      "Bash(claude:*)",
+      "Bash(msbuild:*)",
+      "Bash(\"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.exe\" LAB1.sln /p:Configuration=Debug /p:Platform=x86)"
     ],
     "deny": [],
     "ask": []
