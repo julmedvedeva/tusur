@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="cardioide.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CardioidePNG"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos Y="37"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="3">
+      <Position>
+        <Filename Value="cardioide.lpr"/>
+        <Caret Line="30" Column="41" TopLine="8"/>
+      </Position>
+      <Position>
+        <Filename Value="cardioide.lpr"/>
+        <Caret Line="15" Column="64"/>
+      </Position>
+      <Position>
+        <Filename Value="cardioide.lpr"/>
+        <Caret Line="42" TopLine="6"/>
+      </Position>
+      <Position>
+        <Filename Value="cardioide.lpr"/>
+        <Caret Line="21" Column="109"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

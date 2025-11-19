@@ -1,0 +1,64 @@
+program UppercaseVowelsProgram;
+
+{$mode objfpc}{$H+}
+
+uses
+  SysUtils;
+
+// Функция для сортировки строки в алфавитном порядке
+function SortString(s: string): string;
+var
+  i, j: Integer;
+  temp: char;
+begin
+  // Двойной цикл для сортировки пузырьком
+  for i := 1 to Length(s) - 1 do
+    for j := i + 1 to Length(s) do
+      if s[i] > s[j] then
+      begin
+        // Обмен значениями
+        temp := s[i];
+        s[i] := s[j];
+        s[j] := temp;
+      end;
+  // Возвращаем отсортированную строку
+  SortString := s;
+end;
+
+// Функция для извлечения и сортировки заглавных гласных из строки
+function ExtractAndSortUppercaseVowels(inputStr: string): string;
+var
+  vowelsSet: set of char;  // Множество заглавных гласных букв
+  resultStr: string;       // Результирующая строка
+  i: Integer;              // Счетчик для итерации по входной строке
+begin
+  // Инициализация множества заглавных гласных
+  vowelsSet := ['A', 'E', 'I', 'O', 'U'];
+  resultStr := '';  // Инициализация результирующей строки как пустой
+
+  // Цикл по всем символам входной строки
+  for i := 1 to Length(inputStr) do
+  begin
+    // Проверка, является ли текущий символ заглавной гласной и не содержится ли он уже в результирующей строке
+    if (inputStr[i] in vowelsSet) and (Pos(inputStr[i], resultStr) = 0) then
+      resultStr := resultStr + inputStr[i];  // Добавление символа в результирующую строку
+  end;
+
+  // Сортировка результирующей строки и возврат отсортированной строки
+  ExtractAndSortUppercaseVowels := SortString(resultStr);
+end;
+
+var
+  inputStr, resultStr: string;
+begin
+  // Пример использования
+  Write('Enter a string: ');
+  ReadLn(inputStr);
+
+  resultStr := ExtractAndSortUppercaseVowels(inputStr);
+  WriteLn('Uppercase vowels in alphabetical order: ', resultStr);
+
+  // Ожидание ввода пользователя перед завершением программы
+  WriteLn('Press Enter to exit...');
+  ReadLn;
+end.

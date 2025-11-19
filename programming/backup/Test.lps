@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="Test.pas"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="24" Y="4"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <BuildFileIfActive Value="True"/>
+        <RunFileIfActive Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/Applications/Lazarus/lcl/checklst.pas"/>
+        <UnitName Value="CheckLst"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="422"/>
+        <CursorPos X="44" Y="435"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/Applications/Lazarus/lcl/interfaces/cocoa/cocoawsdatepicker.pas"/>
+        <UnitName Value="CocoaWSDatePicker"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="71" Y="12"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="main (1).pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="40" Y="13"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/usr/local/share/fpcsrc/rtl/objpas/fgl.pp"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="41" Y="14"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/Applications/Lazarus/ide/componentpalette.pas"/>
+        <UnitName Value="ComponentPalette"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="948"/>
+        <CursorPos X="37" Y="966"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/Applications/Lazarus/ide/projectinspector.pas"/>
+        <UnitName Value="ProjectInspector"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="747"/>
+        <CursorPos X="38" Y="765"/>
+        <UsageCount Value="10"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="2">
+      <Position>
+        <Filename Value="Test.pas"/>
+        <Caret Line="4" Column="10"/>
+      </Position>
+      <Position>
+        <Filename Value="Test.pas"/>
+        <Caret Line="6" Column="19"/>
+      </Position>
+      <Position>
+        <Filename Value="Test.pas"/>
+        <Caret Line="4" Column="4"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

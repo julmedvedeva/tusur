@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="/usr/local/bin/fpc" Date="1621181457"/>
+  <Params Value=" -MObjFPC -Scghi -O1 -gw3 -gl -k-framework -kCocoa -l -vewnhibq -Fi/Users/julia_medvedeva/Documents/computer-science/tusur/programming/pascal/lib/x86_64-darwin -Fu/Users/julia_medvedeva/.lazarus/lib/units/x86_64-darwin/cocoa -Fu/Users/julia_medvedeva/.lazarus/lib/LCLBase/units/x86_64-darwin -Fu/Users/julia_medvedeva/.lazarus/lib/freetypelaz/lib/x86_64-darwin -Fu/Users/julia_medvedeva/.lazarus/lib/LazUtils/lib/x86_64-darwin -Fu/Users/julia_medvedeva/.lazarus/lib/units/x86_64-darwin -Fu/Users/julia_medvedeva/Documents/computer-science/tusur/programming/pascal/ -FU/Users/julia_medvedeva/Documents/computer-science/tusur/programming/pascal/lib/x86_64-darwin/ -FE/Users/julia_medvedeva/Documents/computer-science/tusur/programming/pascal/ -o/Users/julia_medvedeva/Documents/computer-science/tusur/programming/pascal/project1 -dLCL -dLCLcocoa project1.lpr"/>
+</CONFIG>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="primenumberstofille.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="28" Y="12"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="primenumberstofile.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Resolve"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="61" Y="16"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="testing.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="54" Y="8"/>
+        <FoldState Value=" T3I0A1L"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="20">
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="14" Column="33"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="6" Column="19"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="3" Column="13"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofile.pas"/>
+        <Caret Line="2"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="21" Column="57"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="88" Column="32" TopLine="71"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="19" Column="32"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="20" Column="45"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="17" Column="58"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="56" Column="51" TopLine="35"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="21" Column="49"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="108" Column="38" TopLine="87"/>
+      </Position>
+      <Position>
+        <Filename Value="testing.pas"/>
+        <Caret Line="9" Column="46"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="60" Column="12" TopLine="2"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="12" Column="28" TopLine="2"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="27" Column="50" TopLine="9"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="28" Column="44"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofille.lpr"/>
+        <Caret Line="27" Column="38" TopLine="21"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofile.pas"/>
+        <Caret Line="32" Column="15" TopLine="29"/>
+      </Position>
+      <Position>
+        <Filename Value="primenumberstofile.pas"/>
+        <Caret Line="12" Column="46"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
