@@ -21,7 +21,7 @@ Car::~Car() {
     wcout << L"[~Car] Вызван деструктор Car" << endl;
 }
 
-// ✅ Методы проверки и записи
+// === Методы проверки и записи===
 bool Car::SetBrand(const wchar_t* brand) {
     if (brand == nullptr || wcslen(brand) == 0) {
         wcout << L"Ошибка: марка не может быть пустой." << endl;
