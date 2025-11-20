@@ -23,7 +23,9 @@
       "Bash(Select-String \"\\.local\\bin\")",
       "Bash(claude:*)",
       "Bash(msbuild:*)",
-      "Bash(\"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.exe\" LAB1.sln /p:Configuration=Debug /p:Platform=x86)"
+      "Bash(\"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.exe\" LAB1.sln /p:Configuration=Debug /p:Platform=x86)",
+      "Bash(brew list:*)",
+      "Bash(brew uses:*)"
     ],
     "deny": [],
     "ask": []

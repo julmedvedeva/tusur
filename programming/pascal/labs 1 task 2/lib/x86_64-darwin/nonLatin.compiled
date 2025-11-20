@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CONFIG>
-  <Compiler Value="/usr/local/bin/fpc" Date="1621181457"/>
-  <Params Value=" -MObjFPC -Scghi -O1 -gw3 -gl -k-framework -kCocoa -l -vewnhibq &quot;-Fi/Users/julia_medvedeva/Documents/computer-science/tusur/programming/pascal/labs 1 task 2/lib/x86_64-darwin&quot; -Fu/Users/julia_medvedeva/.lazarus/lib/units/x86_64-darwin/cocoa -Fu/Users/julia_medvedeva/.lazarus/lib/LCLBase/units/x86_64-darwin -Fu/Users/julia_medvedeva/.lazarus/lib/freetypelaz/lib/x86_64-darwin -Fu/Users/julia_medvedeva/.lazarus/lib/LazUtils/lib/x86_64-darwin -Fu/Users/julia_medvedeva/.lazarus/lib/units/x86_64-darwin &quot;-Fu/Users/julia_medvedeva/Documents/computer-science/tusur/programming/pascal/labs 1 task 2/&quot; &quot;-FU/Users/julia_medvedeva/Documents/computer-science/tusur/programming/pascal/labs 1 task 2/lib/x86_64-darwin/&quot; &quot;-FE/Users/julia_medvedeva/Documents/computer-science/tusur/programming/pascal/labs 1 task 2/&quot; &quot;-o/Users/julia_medvedeva/Documents/computer-science/tusur/programming/pascal/labs 1 task 2/nonLatin&quot; -dLCL -dLCLcocoa nonLatin.lpr"/>
-</CONFIG>

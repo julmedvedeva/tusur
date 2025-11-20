@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CONFIG>
-  <Compiler Value="/usr/local/bin/fpc" Date="1621181457"/>
-  <Params Value=" -MObjFPC -Scghi -O1 -gw2 -godwarfsets -gl -k-framework -kCocoa -l -vewnhiupbq -Fu/Users/julia_medvedeva/.lazarus/lib/units/x86_64-darwin/cocoa -Fu/Users/julia_medvedeva/.lazarus/lib/LCLBase/units/x86_64-darwin -Fu/Users/julia_medvedeva/.lazarus/lib/freetypelaz/lib/x86_64-darwin -Fu/Users/julia_medvedeva/.lazarus/lib/LazUtils/lib/x86_64-darwin -Fu/Users/julia_medvedeva/.lazarus/lib/units/x86_64-darwin -Fu/Users/julia_medvedeva/Documents/computer-science/tusur/programming/ -FU/Users/julia_medvedeva/Documents/computer-science/tusur/programming/lib/x86_64-darwin/ -FE/Users/julia_medvedeva/Documents/computer-science/tusur/programming/ -o/Users/julia_medvedeva/Documents/computer-science/tusur/programming/Test -dLCL -dLCLcocoa Test.pas"/>
-</CONFIG>
