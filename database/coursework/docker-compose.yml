@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:16
+    container_name: policlinic-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-policlinic}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - policlinic_data:/var/lib/postgresql/data
+      - ./policlinic_postgresql.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./seed_data.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d policlinic"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  policlinic_data:
