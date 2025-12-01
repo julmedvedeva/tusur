@@ -1,0 +1,139 @@
+@startuml conceptual_model_simple
+!theme plain
+skinparam linetype ortho
+skinparam backgroundColor white
+skinparam shadowing false
+
+skinparam entity {
+    BackgroundColor #E8F4FD
+    BorderColor #2196F3
+    FontSize 12
+}
+
+skinparam class {
+    BackgroundColor #FFF3E0
+    BorderColor #FF9800
+}
+
+title <size:18>Концептуальная модель данных\n"Информационная система поликлиники"</size>
+
+' Группировка по областям
+together {
+    entity "ПАЦИЕНТ" as P #E3F2FD {
+        ФИО
+        Дата рождения
+        Пол
+        Контакты
+        СНИЛС
+        Полис ОМС
+        Адрес
+    }
+
+    entity "ВРАЧ" as D #E3F2FD {
+        ФИО
+        Контакты
+    }
+}
+
+together {
+    entity "ПРИЁМ" as A #FFF8E1 {
+        Дата/время
+        Статус
+        Цель визита
+    }
+
+    entity "МЕДИЦИНСКАЯ\nЗАПИСЬ" as MR #FFF8E1 {
+        Дата создания
+        Описание
+    }
+}
+
+together {
+    entity "СПЕЦИАЛЬНОСТЬ" as SP #F3E5F5 {
+        Название
+        Описание
+    }
+
+    entity "КАБИНЕТ" as R #F3E5F5 {
+        Номер
+        Этаж
+        Тип
+    }
+
+    entity "ДИАГНОЗ" as DG #F3E5F5 {
+        Код МКБ-10
+        Название
+    }
+}
+
+together {
+    entity "ЛЕКАРСТВО" as DR #E8F5E9 {
+        Код
+        Название
+    }
+
+    entity "ПРОЦЕДУРА" as PR #E8F5E9 {
+        Код
+        Название
+    }
+
+    entity "ВИД АНАЛИЗА" as AC #E8F5E9 {
+        Код
+        Название
+    }
+}
+
+entity "АНАЛИЗ" as AN #FFEBEE {
+    Дата назначения
+    Дата выполнения
+    Результат
+}
+
+entity "НАЗНАЧЕНИЕ\nЛЕКАРСТВА" as PD #FFEBEE {
+    Дозировка
+    Длительность
+}
+
+entity "НАЗНАЧЕНИЕ\nПРОЦЕДУРЫ" as PP #FFEBEE {
+    Количество
+    Длительность
+}
+
+entity "РАСПИСАНИЕ" as DR_R #F5F5F5 {
+    День недели
+    Время начала
+    Время окончания
+}
+
+' ═══════════════════════════════════════
+' СВЯЗИ
+' ═══════════════════════════════════════
+
+P ||--o{ A : "записывается\nна"
+D ||--o{ A : "проводит"
+A ||--|| MR : "формирует"
+
+D }o--o{ SP : "имеет\nспециальность"
+D ||--o{ DR_R : "работает"
+R ||--o{ DR_R : "в кабинете"
+
+MR }o--|| DG : "диагноз"
+MR ||--o{ PD : "назначает"
+MR ||--o{ PP : "назначает"
+
+PD }o--|| DR : "лекарство"
+PP }o--|| PR : "процедура"
+
+A ||--o{ AN : "назначает"
+AN }o--|| AC : "тип"
+
+legend right
+    |= Цвет |= Тип сущности |
+    | <#E3F2FD> | Основные сущности |
+    | <#FFF8E1> | Операционные |
+    | <#F3E5F5> | Справочники (атрибуты) |
+    | <#E8F5E9> | Справочники (назначения) |
+    | <#FFEBEE> | Детализация |
+endlegend
+
+@enduml

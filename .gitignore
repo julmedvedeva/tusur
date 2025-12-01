@@ -43,3 +43,4 @@ Debug
 
 CLAUDE.md
 node_modules
+.envs/

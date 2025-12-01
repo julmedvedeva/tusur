@@ -1,0 +1,215 @@
+@startuml conceptual_model
+!theme plain
+skinparam linetype ortho
+skinparam roundcorner 5
+skinparam class {
+    BackgroundColor White
+    BorderColor #333333
+    ArrowColor #333333
+}
+
+title Концептуальная модель данных "Поликлиника"
+
+' ═══════════════════════════════════════
+' ОСНОВНЫЕ СУЩНОСТИ
+' ═══════════════════════════════════════
+
+entity "ПАЦИЕНТ" as patient {
+    * id : integer <<PK>>
+    --
+    * фамилия : string
+    * имя : string
+    отчество : string
+    * дата_рождения : date
+    * пол : enum
+    телефон : string
+    email : string
+    СНИЛС : string <<unique>>
+    полис_ОМС : string <<unique>>
+}
+
+entity "ВРАЧ" as doctor {
+    * id : integer <<PK>>
+    --
+    * фамилия : string
+    * имя : string
+    отчество : string
+    телефон : string
+    email : string
+}
+
+entity "ПРИЁМ" as appointment {
+    * id : integer <<PK>>
+    --
+    * дата_время : timestamp
+    * статус : enum
+    цель_визита : text
+}
+
+entity "МЕДИЦИНСКАЯ ЗАПИСЬ" as medical_record {
+    * id : integer <<PK>>
+    --
+    * дата_создания : timestamp
+    описание : text
+}
+
+' ═══════════════════════════════════════
+' СПРАВОЧНИКИ
+' ═══════════════════════════════════════
+
+entity "СПЕЦИАЛЬНОСТЬ" as specialty {
+    * id : integer <<PK>>
+    --
+    * название : string
+    описание : text
+}
+
+entity "КАБИНЕТ" as room {
+    * id : integer <<PK>>
+    --
+    * номер : string
+    этаж : integer
+    * тип : enum
+    описание : text
+}
+
+entity "ДИАГНОЗ" as diagnosis {
+    * id : integer <<PK>>
+    --
+    код_МКБ10 : string <<unique>>
+    * название : string
+    описание : text
+}
+
+entity "ЛЕКАРСТВО" as drug {
+    * id : integer <<PK>>
+    --
+    код : string <<unique>>
+    * название : string
+}
+
+entity "ПРОЦЕДУРА" as procedure {
+    * id : integer <<PK>>
+    --
+    код : string <<unique>>
+    * название : string
+    описание : text
+}
+
+entity "ВИД АНАЛИЗА" as analysis_catalog {
+    * id : integer <<PK>>
+    --
+    * код : string <<unique>>
+    * название : string
+    описание : text
+}
+
+' ═══════════════════════════════════════
+' ОПЕРАЦИОННЫЕ СУЩНОСТИ
+' ═══════════════════════════════════════
+
+entity "РАСПИСАНИЕ" as doctor_room {
+    * id : integer <<PK>>
+    --
+    * день_недели : integer
+    * время_начала : time
+    * время_окончания : time
+}
+
+entity "АНАЛИЗ" as analysis {
+    * id : integer <<PK>>
+    --
+    * дата_назначения : timestamp
+    дата_выполнения : timestamp
+    результат : text
+}
+
+entity "НАЗНАЧЕНИЕ\nЛЕКАРСТВА" as prescription_drug {
+    * id : integer <<PK>>
+    --
+    * дозировка : string
+    * длительность : string
+}
+
+entity "НАЗНАЧЕНИЕ\nПРОЦЕДУРЫ" as prescription_procedure {
+    * id : integer <<PK>>
+    --
+    количество : integer
+    длительность_минут : integer
+}
+
+' ═══════════════════════════════════════
+' АДРЕСНЫЕ СПРАВОЧНИКИ
+' ═══════════════════════════════════════
+
+entity "СТРАНА" as country {
+    * id : integer <<PK>>
+    --
+    код : string <<unique>>
+    * название : string
+}
+
+entity "ГОРОД" as town {
+    * id : integer <<PK>>
+    --
+    код : string <<unique>>
+    * название : string
+}
+
+entity "УЛИЦА" as street {
+    * id : integer <<PK>>
+    --
+    код : string <<unique>>
+    * название : string
+}
+
+' ═══════════════════════════════════════
+' СВЯЗИ
+' ═══════════════════════════════════════
+
+' Врач - Специальность (M:N)
+doctor }o--o{ specialty : "имеет"
+
+' Врач - Кабинет через Расписание (M:N)
+doctor ||--o{ doctor_room : "работает"
+room ||--o{ doctor_room : "в кабинете"
+
+' Пациент - Приём (1:N)
+patient ||--o{ appointment : "записывается"
+
+' Врач - Приём (1:N)
+doctor ||--o{ appointment : "проводит"
+
+' Приём - Медицинская запись (1:1)
+appointment ||--o| medical_record : "формирует"
+
+' Медицинская запись - Диагноз (N:1)
+medical_record }o--|| diagnosis : "содержит"
+
+' Медицинская запись - Назначения (1:N)
+medical_record ||--o{ prescription_drug : "включает"
+medical_record ||--o{ prescription_procedure : "включает"
+
+' Назначения - Справочники (N:1)
+prescription_drug }o--|| drug : "лекарство"
+prescription_procedure }o--|| procedure : "процедура"
+
+' Приём - Анализ (1:N)
+appointment ||--o{ analysis : "назначает"
+
+' Анализ - Вид анализа (N:1)
+analysis }o--|| analysis_catalog : "тип"
+
+' Анализ - Диагноз (N:1, опционально)
+analysis }o--o| diagnosis : "для диагноза"
+
+' Адресная иерархия
+country ||--o{ town : "содержит"
+town ||--o{ street : "содержит"
+
+' Пациент - Адрес
+patient }o--|| country : "страна"
+patient }o--|| town : "город"
+patient }o--|| street : "улица"
+
+@enduml
