@@ -25,7 +25,6 @@ Debug
 
 # Temporary files
 *.pdb
-*.obj
 *.idb
 *.sdf
 *.suo
@@ -33,13 +32,13 @@ Debug
 *.log
 *.tlog
 *.dSYM
-*.user
 *.cache
 *.tmp
 *.ilk
-*.exe
 *.dll
 *.lib
 ~*
 ~*.vcxproj
 *.doc
+
+CLAUDE.md
