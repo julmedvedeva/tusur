@@ -23,6 +23,7 @@ function DoctorRoomsTable() {
   const [showDelete, setShowDelete] = useState(false);
   const [editItem, setEditItem] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+  const [deleteError, setDeleteError] = useState(null);
   const [doctors, setDoctors] = useState([]);
   const [rooms, setRooms] = useState([]);
 
@@ -43,7 +44,7 @@ function DoctorRoomsTable() {
 
   const handleAdd = () => { setEditItem(null); setShowForm(true); };
   const handleEdit = (item) => { setEditItem(item); setShowForm(true); };
-  const handleDelete = (id) => { setDeleteId(id); setShowDelete(true); };
+  const handleDelete = (id) => { setDeleteId(id); setDeleteError(null); setShowDelete(true); };
 
   const handleSubmit = async (formData) => {
     // Валидация: конец смены должен быть позже начала
@@ -54,7 +55,14 @@ function DoctorRoomsTable() {
     else await create(formData);
   };
 
-  const confirmDelete = async () => { await remove(deleteId); setShowDelete(false); };
+  const confirmDelete = async () => {
+    try {
+      await remove(deleteId);
+      setShowDelete(false);
+    } catch (err) {
+      setDeleteError(err.message);
+    }
+  };
 
   const formatTime = (time) => time?.slice(0, 5) || '';
 
@@ -102,9 +110,14 @@ function DoctorRoomsTable() {
         title={editItem ? 'Редактировать расписание' : 'Добавить расписание'}
         fields={fields} initialData={editItem || { day_of_week: 1 }} onSubmit={handleSubmit} />
 
-      <ConfirmModal show={showDelete} onHide={() => setShowDelete(false)}
-        onConfirm={confirmDelete} title="Удалить расписание"
-        message="Вы уверены, что хотите удалить это расписание?" />
+      <ConfirmModal
+        show={showDelete}
+        onHide={() => { setShowDelete(false); setDeleteError(null); }}
+        onConfirm={confirmDelete}
+        title="Удалить расписание"
+        message="Вы уверены, что хотите удалить это расписание?"
+        error={deleteError}
+      />
     </>
   );
 }

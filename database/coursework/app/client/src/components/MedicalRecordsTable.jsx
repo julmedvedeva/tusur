@@ -29,6 +29,7 @@ function MedicalRecordsTable() {
   const [showDelete, setShowDelete] = useState(false);
   const [editItem, setEditItem] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+  const [deleteError, setDeleteError] = useState(null);
   const [patients, setPatients] = useState([]);
   const [diagnoses, setDiagnoses] = useState([]);
   const [appointments, setAppointments] = useState([]);
@@ -85,14 +86,21 @@ function MedicalRecordsTable() {
 
   const handleAdd = () => { setEditItem(null); setShowForm(true); };
   const handleEdit = (item) => { setEditItem(item); setShowForm(true); };
-  const handleDelete = (id) => { setDeleteId(id); setShowDelete(true); };
+  const handleDelete = (id) => { setDeleteId(id); setDeleteError(null); setShowDelete(true); };
 
   const handleSubmit = async (formData) => {
     if (editItem) await update(editItem.id, formData);
     else await create(formData);
   };
 
-  const confirmDelete = async () => { await remove(deleteId); setShowDelete(false); };
+  const confirmDelete = async () => {
+    try {
+      await remove(deleteId);
+      setShowDelete(false);
+    } catch (err) {
+      setDeleteError(err.message);
+    }
+  };
 
   const formatDateTime = (dateStr) => new Date(dateStr).toLocaleString('ru-RU');
 
@@ -196,9 +204,14 @@ function MedicalRecordsTable() {
         title={editItem ? 'Редактировать запись' : 'Добавить запись'}
         fields={fields} initialData={editItem || {}} onSubmit={handleSubmit} />
 
-      <ConfirmModal show={showDelete} onHide={() => setShowDelete(false)}
-        onConfirm={confirmDelete} title="Удалить запись"
-        message="Вы уверены, что хотите удалить эту медицинскую запись?" />
+      <ConfirmModal
+        show={showDelete}
+        onHide={() => { setShowDelete(false); setDeleteError(null); }}
+        onConfirm={confirmDelete}
+        title="Удалить запись"
+        message="Вы уверены, что хотите удалить эту медицинскую запись?"
+        error={deleteError}
+      />
     </>
   );
 }

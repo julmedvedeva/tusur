@@ -51,16 +51,24 @@ function FormModal({ show, onHide, title, fields, initialData, onSubmit }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+
+    // Обрезать пробелы для всех текстовых полей
+    const trimmedData = Object.keys(formData).reduce((acc, key) => {
+      const value = formData[key];
+      acc[key] = typeof value === 'string' ? value.trim() : value;
+      return acc;
+    }, {});
+
     const errors = {};
     fields.forEach(field => {
-      if (field.mask === 'snils' && formData[field.name]) {
-        const digits = formData[field.name].replace(/\D/g, '');
+      if (field.mask === 'snils' && trimmedData[field.name]) {
+        const digits = trimmedData[field.name].replace(/\D/g, '');
         if (digits.length !== 11) {
           errors[field.name] = 'СНИЛС должен содержать 11 цифр';
         }
       }
-      if (field.mask === 'phone' && formData[field.name]) {
-        const digits = formData[field.name].replace(/\D/g, '');
+      if (field.mask === 'phone' && trimmedData[field.name]) {
+        const digits = trimmedData[field.name].replace(/\D/g, '');
         if (digits.length !== 11) {
           errors[field.name] = 'Телефон должен содержать 11 цифр';
         }
@@ -72,7 +80,7 @@ function FormModal({ show, onHide, title, fields, initialData, onSubmit }) {
     }
     setSaving(true);
     try {
-      await onSubmit(formData);
+      await onSubmit(trimmedData);
       onHide();
     } catch (err) {
       setError(err.message);

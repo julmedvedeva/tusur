@@ -1,0 +1,32 @@
+/* Подсветка активного dropdown заголовка */
+.navbar-nav .active-dropdown > .nav-link {
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 0.25rem;
+}
+
+/* Подсветка активного элемента внутри dropdown */
+.dropdown-menu .dropdown-item.active {
+  font-weight: 600;
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+/* Стиль для NavLink внутри dropdown при наведении */
+.dropdown-menu .dropdown-item.active:hover {
+  background-color: #0b5ed7;
+  color: #fff;
+}
+
+/* Улучшенный стиль для обычных активных пунктов меню */
+.navbar-nav .nav-link.active {
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 0.25rem;
+}
+
+/* Убираем подчеркивание у активных ссылок */
+.navbar-nav .nav-link.active,
+.dropdown-menu .dropdown-item.active {
+  text-decoration: none;
+}

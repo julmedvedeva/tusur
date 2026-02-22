@@ -29,6 +29,7 @@ function AppointmentsTable() {
   const [showDelete, setShowDelete] = useState(false);
   const [editItem, setEditItem] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+  const [deleteError, setDeleteError] = useState(null);
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
@@ -88,7 +89,7 @@ function AppointmentsTable() {
     });
     setShowForm(true);
   };
-  const handleDelete = (id) => { setDeleteId(id); setShowDelete(true); };
+  const handleDelete = (id) => { setDeleteId(id); setDeleteError(null); setShowDelete(true); };
 
   const handleSubmit = async (formData) => {
     if (editItem) {
@@ -99,8 +100,12 @@ function AppointmentsTable() {
   };
 
   const confirmDelete = async () => {
-    await remove(deleteId);
-    setShowDelete(false);
+    try {
+      await remove(deleteId);
+      setShowDelete(false);
+    } catch (err) {
+      setDeleteError(err.message);
+    }
   };
 
   const formatDateTime = (dateStr) => new Date(dateStr).toLocaleString('ru-RU');
@@ -237,10 +242,11 @@ function AppointmentsTable() {
 
       <ConfirmModal
         show={showDelete}
-        onHide={() => setShowDelete(false)}
+        onHide={() => { setShowDelete(false); setDeleteError(null); }}
         onConfirm={confirmDelete}
         title="Удалить запись"
         message="Вы уверены, что хотите удалить эту запись на приём?"
+        error={deleteError}
       />
     </>
   );
