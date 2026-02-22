@@ -1,167 +1,107 @@
-п»ї#define NOMINMAX
-#include "main.h"
-#include <Windows.h>
-#undef max
-#undef min
-#include <limits>
-#include <io.h>
-#include <fcntl.h>
+#include "car.h"
+#include "additionalCar.h"
+#include "myUtils.h"
 
 using namespace std;
 
-// === Р РµР°Р»РёР·Р°С†РёСЏ РєР»Р°СЃСЃР° Car ===
-
-Car::Car() : number_(0), price_(0), brand_(L"unknown") {}
-
-Car::Car(const wchar_t* brand, int number, float price)
-    : number_(number), price_(price), brand_(brand) {
-}
-
-Car::~Car() {
-    wcout << L"[~Car] Р’С‹Р·РІР°РЅ РґРµСЃС‚СЂСѓРєС‚РѕСЂ Car" << endl;
-}
-
-// === РњРµС‚РѕРґС‹ РїСЂРѕРІРµСЂРєРё Рё Р·Р°РїРёСЃРё===
-bool Car::SetBrand(const wchar_t* brand) {
-    if (brand == nullptr || wcslen(brand) == 0) {
-        wcout << L"РћС€РёР±РєР°: РјР°СЂРєР° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚РѕР№." << endl;
-        return false;
-    }
-    brand_ = brand;
-    return true;
-}
-
-bool Car::SetNumber(int number) {
-    if (number < 0) {
-        wcout << L"РћС€РёР±РєР°: РЅРѕРјРµСЂ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рј." << endl;
-        return false;
-    }
-    number_ = number;
-    return true;
-}
-
-bool Car::SetPrice(float price) {
-    if (price < 0) {
-        wcout << L"РћС€РёР±РєР°: С†РµРЅР° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕР№." << endl;
-        return false;
-    }
-    price_ = price;
-    return true;
-}
-
-// === РњРµС‚РѕРґ Input СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј СЃРµС‚С‚РµСЂРѕРІ ===
-void Car::Input() {
-    wstring brand;
-    while (true) {
-        wcout << L"Р’РІРµРґРёС‚Рµ РјР°СЂРєСѓ РјР°С€РёРЅС‹: ";
-        wcin >> brand;
-        if (SetBrand(brand.c_str())) break;
-    }
-
-    int num;
-    while (true) {
-        wcout << L"Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РјР°С€РёРЅС‹: ";
-        wcin >> num;
-        if (wcin.fail()) {
-            wcin.clear();
-            wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
-            wcout << L"РћС€РёР±РєР°: РІРІРµРґРёС‚Рµ С‡РёСЃР»Рѕ." << endl;
-            continue;
-        }
-        if (SetNumber(num)) break;
-    }
-
-    float price;
-    while (true) {
-        wcout << L"Р’РІРµРґРёС‚Рµ С†РµРЅСѓ РјР°С€РёРЅС‹: ";
-        wcin >> price;
-        if (wcin.fail()) {
-            wcin.clear();
-            wcin.ignore(numeric_limits<streamsize>::max(), L'\n');
-            wcout << L"РћС€РёР±РєР°: РІРІРµРґРёС‚Рµ С‡РёСЃР»Рѕ." << endl;
-            continue;
-        }
-        if (SetPrice(price)) break;
-    }
-}
-
-// === Р’С‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё ===
-void Car::Print() const {
-    wcout << L"РњР°СЂРєР°: " << brand_ << endl;
-    wcout << L"РќРѕРјРµСЂ: " << number_ << endl;
-    wcout << L"Р¦РµРЅР°: " << price_ << endl;
-}
-
-// === РљР»Р°СЃСЃ AdditionalCar ===
-AdditionalCar::AdditionalCar()
-    : Car(L"unknown", 0, 0), mainInfo_(L"РЅРµС‚ РѕРїРёСЃР°РЅРёСЏ") {
-}
-
-AdditionalCar::AdditionalCar(const wchar_t* brand, const wchar_t* mainInfo, int number, float price)
-    : Car(brand, number, price), mainInfo_(mainInfo) {
-}
-
-AdditionalCar::~AdditionalCar() {
-    wcout << L"[~AdditionalCar] Р’С‹Р·РІР°РЅ РґРµСЃС‚СЂСѓРєС‚РѕСЂ AdditionalCar" << endl;
-}
-
-void AdditionalCar::Print() const {
-    Car::Print();
-    wcout << L"РћРїРёСЃР°РЅРёРµ: " << mainInfo_ << endl;
-}
-
-// === Р“Р»Р°РІРЅР°СЏ С„СѓРЅРєС†РёСЏ ===
-int main() {
+// Функция настройки отображения символов и поддержки киррилицы
+static void setUpLocale() {
 #ifdef _WIN32
     system("chcp 1251 > nul");
 #endif
     setlocale(LC_ALL, "Russian");
-    SetConsoleOutputCP(866);
+}
 
-    int choice;
-    wcout << L"Р’С‹Р±РµСЂРёС‚Рµ РІР°СЂРёР°РЅС‚ (1вЂ“4):" << endl;
-    wcout << L"1. РЎС‚Р°С‚РёС‡РµСЃРєРѕРµ РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ)\n";
-    wcout << L"2. РЎС‚Р°С‚РёС‡РµСЃРєРѕРµ РІС‹РґРµР»РµРЅРёРµ (СЃ РїР°СЂР°РјРµС‚СЂР°РјРё)\n";
-    wcout << L"3. Р”РёРЅР°РјРёС‡РµСЃРєРѕРµ РІС‹РґРµР»РµРЅРёРµ (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ)\n";
-    wcout << L"4. Р”РёРЅР°РјРёС‡РµСЃРєРѕРµ РІС‹РґРµР»РµРЅРёРµ (СЃ РїР°СЂР°РјРµС‚СЂР°РјРё)\n";
-    wcin >> choice;
+// Номер пункта меню, соответствующий выходу из приложения
+#define EXIT_CHOICE 6
+// Мето для вывода меню на экран
+static void printMenu() {
+    cout << "\n------------------------------------------------\n";
+    cout << "Выберите сценарий (1–5):" << endl;
+    cout << "1. Объект Car на стеке (конструктор по умолчанию)\n";
+    cout << "2. Объект Car на стеке (конструктор с параметрами)\n";
+    cout << "3. Динамический объект Car (ввод с клавиатуры)\n";
+    cout << "4. Динамический объект Car (конструктор с параметрами)\n";
+    cout << "5. Объект AdditionalCar (наследник Car) на стеке (ввод с клавиатуры)\n";
+    cout << EXIT_CHOICE << ". Выйти из приложения\n";
+}
 
-    if (choice == 1) {
-        Car car1;
-        wcout << L"РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РјР°С€РёРЅРµ car1:" << endl;
-        car1.Print();
+// Функция, выполняющая конкретный сценарий, в зависимости от choice
+static void processChoice(int choice) {
+    switch (choice) {
+    case 1: {
+        // Объект Car на стеке (конструктор по умолчанию)
+        Car car;
+        cout << "Информация о машине:" << endl;
+        car.Print();
+        break;
     }
-    else if (choice == 2) {
-       
-        Car car2(L"РќРёСЃСЃР°РЅ", 1234, 18000.0);
-        wcout << L"РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РјР°С€РёРЅРµ car2 (СЃС‚Р°С‚РёС‡РµСЃРєР°СЏ, СЃ РїР°СЂР°РјРµС‚СЂР°РјРё):" << endl;
-        car2.Print();
+    case 2: {
+        // Объект Car на стеке(конструктор с параметрами)
+        Car car("Ниссан", 1234, 18000.0);
+        cout << "Информация о машине:" << endl;
+        car.Print();
+        break;
+    }
+    case 3: {
+        // Динамический объект Car (ввод с клавиатуры)
+        Car* car = new Car();
+        car->Input();
+        cout << "\nВведённая информация о машине:" << endl;
+        car->Print();
+        delete car; // Не забываем удалить динамический объект
+        break;
+    }
+    case 4: {
+        // Динамический объект Car (конструктор с параметрами)
+        Car* car = new Car("Форд", 2020, 20000.0);
+        cout << "Информация о машине:" << endl;
+        car->Print();
+        delete car; // Не забываем удалить динамический объект
+        break;
+    }
+    case 5: {
+        // Объект AditionalCar(наследник Car) на стеке (ввод с клавиатуры)
+        AdditionalCar additionalCar;
+        // Создадим ссылку на Car, ссылающуюся на инстнас AdditionalCar
+        // и далее продемонстрируем полиморфизм, через вызов виртуальных методов
+        Car &car = additionalCar;
+        car.Input(); // вызов виртуального метода Input
+                     // будет вызван метод AdditionalCar::Input
+        cout << "\nВведённая информация о машине:" << endl;
+        car.Print(); // вызов виртуального метода Print
+                     // будет вызван метод AdditionalCar::Print
+        break;
+    }
+    default:
+        cout << "Некорректный выбор." << endl;
+        break;
+    }
+}
 
-        AdditionalCar car3(L"MiniCar",
-            L"РљРѕРјРїР°РєС‚РЅС‹Р№ Р°РІС‚РѕРјРѕР±РёР»СЊ РґР»СЏ РіРѕСЂРѕРґР°.",
-            2024, 15000.0);
-        wcout << L"\nРРЅС„РѕСЂРјР°С†РёСЏ Рѕ РјР°С€РёРЅРµ car3 (РЅР°СЃР»РµРґРЅРёРє):" << endl;
-        car3.Print();
-    }
-    else if (choice == 3) {
-        Car* car4 = new Car();
-        car4->Input();
-        wcout << L"\nР’РІРµРґС‘РЅРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ:" << endl;
-        car4->Print();
-        delete car4;
-    }
-    else if (choice == 4) {
-        Car* car5 = new Car(L"Р¤РѕСЂРґ", 2020, 20000.0);
-        wcout << L"РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РјР°С€РёРЅРµ car5:" << endl;
-        car5->Print();
-        delete car5;
-    }
-    else {
-        wcout << L"РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІС‹Р±РѕСЂ." << endl;
-    }
+// === Главная функция ===
+int main() {
+    // Настраиваем отображение символов и поддержку киррилицы
+    setUpLocale();
 
-    wcout << L"\nРќР°Р¶РјРёС‚Рµ Enter, С‡С‚РѕР±С‹ РІС‹Р№С‚Рё...";
-    wcin.ignore();
-    wcin.get();
+    // В цикле выводим пункты меню и запускаем запрашиваемые сценарии,
+    // пока пользователь не запросит завершения
+    while (true) {
+        printMenu(); // вывод на экран пунктов меню
+
+        int choice;
+        cin >> choice;
+        // обработка ошибок ввода чисел
+        if (cin.fail()) {
+            // обрабатываем ошибку ввода
+            HANDLE_INPUT_ERROR("введите число.");
+            // продолжаем цикл для повторного ввода
+            continue;
+        }
+        if (choice == EXIT_CHOICE) break;
+
+        // выполняем сценарий, в зависимости от выбора пользователя
+        processChoice(choice);
+    }
     return 0;
 }

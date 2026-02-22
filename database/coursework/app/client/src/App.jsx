@@ -13,6 +13,7 @@ import SpecialtiesTable from './components/SpecialtiesTable'
 import MedicalRecordsTable from './components/MedicalRecordsTable'
 import DoctorRoomsTable from './components/DoctorRoomsTable'
 import PrescriptionProceduresTable from './components/PrescriptionProceduresTable'
+import SelectionsPage from './components/SelectionsPage'
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
                 <NavDropdown.Divider />
                 <NavDropdown.Item as={NavLink} to="/doctor-rooms">Расписание врачей</NavDropdown.Item>
               </NavDropdown>
+              <Nav.Link as={NavLink} to="/selections">Выборки</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -65,6 +67,7 @@ function App() {
           <Route path="/rooms" element={<RoomsTable />} />
           <Route path="/specialties" element={<SpecialtiesTable />} />
           <Route path="/doctor-rooms" element={<DoctorRoomsTable />} />
+          <Route path="/selections" element={<SelectionsPage />} />
         </Routes>
       </Container>
     </>

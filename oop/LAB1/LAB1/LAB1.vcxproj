@@ -127,9 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="main.h" />
+    <ClInclude Include="additionalCar.h" />
+    <ClInclude Include="car.h" />
+    <ClInclude Include="myUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="additionalCar.cpp" />
+    <ClCompile Include="car.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
