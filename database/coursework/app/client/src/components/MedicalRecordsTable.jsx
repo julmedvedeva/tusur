@@ -30,6 +30,7 @@ function MedicalRecordsTable() {
   const [editItem, setEditItem] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [deleteError, setDeleteError] = useState(null);
+  const [sortOrder, setSortOrder] = useState('desc');
   const [patients, setPatients] = useState([]);
   const [diagnoses, setDiagnoses] = useState([]);
   const [appointments, setAppointments] = useState([]);
@@ -173,7 +174,12 @@ function MedicalRecordsTable() {
       <Table striped bordered hover responsive>
         <thead className="table-dark">
           <tr>
-            <th>ID</th>
+            <th
+              style={{ cursor: 'pointer', userSelect: 'none' }}
+              onClick={() => setSortOrder(o => o === 'asc' ? 'desc' : 'asc')}
+            >
+              ID {sortOrder === 'asc' ? '↑' : '↓'}
+            </th>
             <th>Дата</th>
             <th>Пациент</th>
             <th>Диагноз</th>
@@ -182,7 +188,7 @@ function MedicalRecordsTable() {
           </tr>
         </thead>
         <tbody>
-          {data.map(row => (
+          {[...data].sort((a, b) => sortOrder === 'asc' ? a.id - b.id : b.id - a.id).map(row => (
             <tr key={row.id}>
               <td>{row.id}</td>
               <td>{formatDateTime(row.created_at)}</td>

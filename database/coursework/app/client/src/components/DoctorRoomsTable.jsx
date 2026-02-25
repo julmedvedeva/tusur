@@ -24,6 +24,7 @@ function DoctorRoomsTable() {
   const [editItem, setEditItem] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [deleteError, setDeleteError] = useState(null);
+  const [sortOrder, setSortOrder] = useState('desc');
   const [doctors, setDoctors] = useState([]);
   const [rooms, setRooms] = useState([]);
 
@@ -79,7 +80,12 @@ function DoctorRoomsTable() {
       <Table striped bordered hover responsive>
         <thead className="table-dark">
           <tr>
-            <th>ID</th>
+            <th
+              style={{ cursor: 'pointer', userSelect: 'none' }}
+              onClick={() => setSortOrder(o => o === 'asc' ? 'desc' : 'asc')}
+            >
+              ID {sortOrder === 'asc' ? '↑' : '↓'}
+            </th>
             <th>Врач</th>
             <th>Кабинет</th>
             <th>День недели</th>
@@ -88,7 +94,7 @@ function DoctorRoomsTable() {
           </tr>
         </thead>
         <tbody>
-          {data.map(row => (
+          {[...data].sort((a, b) => sortOrder === 'asc' ? a.id - b.id : b.id - a.id).map(row => (
             <tr key={row.id}>
               <td>{row.id}</td>
               <td>{row.doctor_name}</td>

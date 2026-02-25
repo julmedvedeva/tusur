@@ -261,8 +261,8 @@ function PatientsTable() {
             <th>ФИО</th>
             <th>Дата рожд.</th>
             <th>Пол</th>
-            <th>Телефон</th>
-            <th>СНИЛС</th>
+            <th style={{ minWidth: '160px' }}>Телефон</th>
+            <th style={{ minWidth: '140px' }}>СНИЛС</th>
             <th>Полис ОМС</th>
             <th>Адрес</th>
             <th>Действия</th>

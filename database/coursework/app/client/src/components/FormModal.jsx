@@ -1,5 +1,5 @@
 import { Modal, Button, Form, Alert, Badge, Dropdown } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const applySnilsMask = (value) => {
   const digits = value.replace(/\D/g, '').slice(0, 11);
@@ -26,6 +26,7 @@ function FormModal({ show, onHide, title, fields, initialData, onSubmit }) {
   const [error, setError] = useState(null);
   const [saving, setSaving] = useState(false);
   const [fieldErrors, setFieldErrors] = useState({});
+  const errorRef = useRef(null);
 
   useEffect(() => {
     if (show) {
@@ -34,6 +35,12 @@ function FormModal({ show, onHide, title, fields, initialData, onSubmit }) {
       setFieldErrors({});
     }
   }, [show, initialData]);
+
+  useEffect(() => {
+    if (error && errorRef.current) {
+      errorRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [error]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,7 +103,7 @@ function FormModal({ show, onHide, title, fields, initialData, onSubmit }) {
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {error && <Alert variant="danger">{error}</Alert>}
+          {error && <Alert ref={errorRef} variant="danger">{error}</Alert>}
           {fields.map(field => (
             <Form.Group className="mb-3" key={field.name}>
               <Form.Label>{field.label}</Form.Label>

@@ -17,6 +17,7 @@ function AnalysesCatalogTable() {
   const [editItem, setEditItem] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [deleteError, setDeleteError] = useState(null);
+  const [sortOrder, setSortOrder] = useState('desc');
 
   const handleAdd = () => { setEditItem(null); setShowForm(true); };
   const handleEdit = (item) => { setEditItem(item); setShowForm(true); };
@@ -49,7 +50,12 @@ function AnalysesCatalogTable() {
       <Table striped bordered hover responsive>
         <thead className="table-dark">
           <tr>
-            <th>ID</th>
+            <th
+              style={{ cursor: 'pointer', userSelect: 'none' }}
+              onClick={() => setSortOrder(o => o === 'asc' ? 'desc' : 'asc')}
+            >
+              ID {sortOrder === 'asc' ? '↑' : '↓'}
+            </th>
             <th>Код</th>
             <th>Название</th>
             <th>Описание</th>
@@ -57,7 +63,7 @@ function AnalysesCatalogTable() {
           </tr>
         </thead>
         <tbody>
-          {data.map(row => (
+          {[...data].sort((a, b) => sortOrder === 'asc' ? a.id - b.id : b.id - a.id).map(row => (
             <tr key={row.id}>
               <td>{row.id}</td>
               <td><code>{row.code}</code></td>

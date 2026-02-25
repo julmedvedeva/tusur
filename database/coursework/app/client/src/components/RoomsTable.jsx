@@ -39,6 +39,7 @@ function RoomsTable() {
   const [editItem, setEditItem] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [deleteError, setDeleteError] = useState(null);
+  const [sortOrder, setSortOrder] = useState('desc');
 
   const handleAdd = () => { setEditItem(null); setShowForm(true); };
   const handleEdit = (item) => { setEditItem(item); setShowForm(true); };
@@ -71,7 +72,12 @@ function RoomsTable() {
       <Table striped bordered hover responsive>
         <thead className="table-dark">
           <tr>
-            <th>ID</th>
+            <th
+              style={{ cursor: 'pointer', userSelect: 'none' }}
+              onClick={() => setSortOrder(o => o === 'asc' ? 'desc' : 'asc')}
+            >
+              ID {sortOrder === 'asc' ? '↑' : '↓'}
+            </th>
             <th>Номер</th>
             <th>Этаж</th>
             <th>Тип</th>
@@ -80,7 +86,7 @@ function RoomsTable() {
           </tr>
         </thead>
         <tbody>
-          {data.map(row => (
+          {[...data].sort((a, b) => sortOrder === 'asc' ? a.id - b.id : b.id - a.id).map(row => (
             <tr key={row.id}>
               <td>{row.id}</td>
               <td><strong>{row.number}</strong></td>

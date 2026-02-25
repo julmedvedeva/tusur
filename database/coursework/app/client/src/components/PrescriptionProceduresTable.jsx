@@ -12,6 +12,7 @@ function PrescriptionProceduresTable() {
   const [editItem, setEditItem] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [deleteError, setDeleteError] = useState(null);
+  const [sortOrder, setSortOrder] = useState('desc');
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [procedures, setProcedures] = useState([]);
 
@@ -71,7 +72,12 @@ function PrescriptionProceduresTable() {
       <Table striped bordered hover responsive>
         <thead className="table-dark">
           <tr>
-            <th>ID</th>
+            <th
+              style={{ cursor: 'pointer', userSelect: 'none' }}
+              onClick={() => setSortOrder(o => o === 'asc' ? 'desc' : 'asc')}
+            >
+              ID {sortOrder === 'asc' ? '↑' : '↓'}
+            </th>
             <th>Пациент</th>
             <th>Диагноз</th>
             <th>Процедура</th>
@@ -81,7 +87,7 @@ function PrescriptionProceduresTable() {
           </tr>
         </thead>
         <tbody>
-          {data.map(row => (
+          {[...data].sort((a, b) => sortOrder === 'asc' ? a.id - b.id : b.id - a.id).map(row => (
             <tr key={row.id}>
               <td>{row.id}</td>
               <td>{row.patient_name}</td>

@@ -40,6 +40,7 @@ function AnalysesTable() {
   const [editItem, setEditItem] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [deleteError, setDeleteError] = useState(null);
+  const [sortOrder, setSortOrder] = useState('desc');
   const [analysesCatalog, setAnalysesCatalog] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [diagnoses, setDiagnoses] = useState([]);
@@ -212,7 +213,12 @@ function AnalysesTable() {
       <Table striped bordered hover responsive>
         <thead className="table-dark">
           <tr>
-            <th>ID</th>
+            <th
+              style={{ cursor: 'pointer', userSelect: 'none' }}
+              onClick={() => setSortOrder(o => o === 'asc' ? 'desc' : 'asc')}
+            >
+              ID {sortOrder === 'asc' ? '↑' : '↓'}
+            </th>
             <th>Анализ</th>
             <th>Пациент</th>
             <th>Назначен</th>
@@ -223,7 +229,7 @@ function AnalysesTable() {
           </tr>
         </thead>
         <tbody>
-          {data.map(row => (
+          {[...data].sort((a, b) => sortOrder === 'asc' ? a.id - b.id : b.id - a.id).map(row => (
             <tr key={row.id}>
               <td>{row.id}</td>
               <td><code>{row.analysis_code}</code> {row.analysis_name}</td>
