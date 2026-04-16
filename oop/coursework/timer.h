@@ -5,6 +5,8 @@
 #include <string>
 #include <iostream>
 
+extern bool g_verbose;
+
 class Time {
 private:
     int hours;

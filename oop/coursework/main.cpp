@@ -89,6 +89,7 @@ void calculateSecondsBetween() {
 
 // Демонстрация всех возможностей класса
 void demonstrateAllOperations() {
+    g_verbose = true;
     cout << "\n--- Демонстрация всех операций класса Time ---" << endl;
 
     // Демонстрация конструкторов
@@ -155,8 +156,16 @@ void demonstrateAllOperations() {
     cout << "group[0]: " << group[0] << endl;
     cout << "group[1]: " << group[1] << endl;
 
+    // Демонстрация toString и оператора <<
+    cout << "\n8. Тестирование toString и оператора <<:" << endl;
+    cout << "-------------------------------" << endl;
+    cout << Time(4, 5, 9) << endl;    // ожидается 04:05:09
+    cout << Time(0, 0, 0) << endl;    // ожидается 00:00:00
+    cout << Time(23, 59, 59) << endl; // ожидается 23:59:59
+
     cout << "\n--- Конец демонстрации ---" << endl;
     cout << "(Обратите внимание на вызовы деструкторов)" << endl;
+    g_verbose = false;
 }
 
 int main() {

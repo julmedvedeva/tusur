@@ -4,31 +4,33 @@
 #include <cmath>
 using namespace std;
 
+bool g_verbose = false;
+
 // Конструктор по умолчанию
 Time::Time() : hours(0), minutes(0), seconds(0) {
-    cout << "Вызван конструктор по умолчанию" << endl;
+    if (g_verbose) cout << "Вызван конструктор по умолчанию" << endl;
 }
 
 // Конструктор с параметрами
 Time::Time(int h, int m, int s) : hours(h), minutes(m), seconds(s) {
-    cout << "Вызван конструктор с параметрами (" << h << ", " << m << ", " << s << ")" << endl;
+    if (g_verbose) cout << "Вызван конструктор с параметрами (" << h << ", " << m << ", " << s << ")" << endl;
     normalize();
 }
 
 // Конструктор из общего числа секунд
 Time::Time(int totalSeconds) {
-    cout << "Вызван конструктор из секунд (" << totalSeconds << ")" << endl;
+    if (g_verbose) cout << "Вызван конструктор из секунд (" << totalSeconds << ")" << endl;
     fromSeconds(totalSeconds);
 }
 
 // Конструктор копирования
 Time::Time(const Time& other) : hours(other.hours), minutes(other.minutes), seconds(other.seconds) {
-    cout << "Вызван конструктор копирования" << endl;
+    if (g_verbose) cout << "Вызван конструктор копирования" << endl;
 }
 
 // Деструктор
 Time::~Time() {
-    cout << "Вызван деструктор для времени " << toString() << endl;
+    if (g_verbose) cout << "Вызван деструктор для времени " << toString() << endl;
 }
 
 // Нормализация времени
