@@ -47,7 +47,12 @@
       "WebSearch",
       "WebFetch(domain:claude.com)",
       "WebFetch(domain:support.claude.com)",
-      "Bash(pip3 install:*)"
+      "Bash(pip3 install:*)",
+      "Bash(bash ~/.claude/statusline-command.sh)",
+      "Bash(echo \"---exit:$?---\")",
+      "Bash(mkdir -p ~/bin)",
+      "Bash(chmod +x ~/bin/jq.exe)",
+      "Bash(~/bin/jq.exe --version)"
     ],
     "deny": [],
     "ask": []

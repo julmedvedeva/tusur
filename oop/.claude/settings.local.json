@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(msbuild corseworkApp.vcxproj /p:Configuration=Debug /p:Platform=x64)",
+      "Bash(cmd.exe *)",
+      "Bash(cmd /c \"\\\\\"C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\MSBuild\\\\Current\\\\Bin\\\\MSBuild.exe\\\\\" \\\\\"C:\\\\Users\\\\medve\\\\Documents\\\\tusur\\\\oop\\\\corseworkApp\\\\corseworkApp.vcxproj\\\\\" /p:Configuration=Debug /p:Platform=x64\")",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(cmd *)",
+      "Bash(powershell *)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" \"/c/Users/medve/Documents/tusur/oop/corseworkApp/corseworkApp.vcxproj\" /p:Configuration=Debug /p:Platform=x64)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" \"C:\\\\\\\\Users\\\\\\\\medve\\\\\\\\Documents\\\\\\\\tusur\\\\\\\\oop\\\\\\\\corseworkApp\\\\\\\\corseworkApp.vcxproj\" \"-p:Configuration=Debug\" \"-p:Platform=x64\")"
+    ]
+  }
+}
