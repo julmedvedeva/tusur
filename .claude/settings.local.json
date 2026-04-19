@@ -52,7 +52,9 @@
       "Bash(echo \"---exit:$?---\")",
       "Bash(mkdir -p ~/bin)",
       "Bash(chmod +x ~/bin/jq.exe)",
-      "Bash(~/bin/jq.exe --version)"
+      "Bash(~/bin/jq.exe --version)",
+      "Bash(ls:*)",
+      "WebFetch(domain:www.work5.ru)"
     ],
     "deny": [],
     "ask": []
