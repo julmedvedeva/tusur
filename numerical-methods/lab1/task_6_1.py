@@ -7,14 +7,14 @@
 import math
 import time
 
-EPS1 = 1e-6   # точность по аргументу
-EPS2 = 1e-6   # точность по функции
+EPS1 = 1e-6  # точность по аргументу
+EPS2 = 1e-6  # точность по функции
 A, B = -10.0, 10.0  # интервал поиска
 H_SCAN = 0.5  # шаг для отделения корней
 
 
 def f(x):
-    return 10 * math.cos(x) - 0.1 * x ** 2
+    return 10 * math.cos(x) - 0.1 * x**2
 
 
 def df(x):
@@ -41,10 +41,10 @@ def separate_roots(a, b, h):
 def convergence_param(history, k=1):
     """Параметр сходимости α = |xn - xn-1| / |xn-1 - xn-2|^k."""
     if len(history) < 3:
-        return float('nan')
+        return float("nan")
     num = abs(history[-1] - history[-2])
     den = abs(history[-2] - history[-3]) ** k
-    return num / den if den != 0 else float('nan')
+    return num / den if den != 0 else float("nan")
 
 
 def print_result(name, root, n_iter, n_f, n_df, n_d2f, elapsed, history, k=1):
@@ -52,7 +52,7 @@ def print_result(name, root, n_iter, n_f, n_df, n_d2f, elapsed, history, k=1):
     print(f"  Метод: {name}")
     print(f"    ξ = {root:.10f},  f(ξ) = {f(root):.2e}")
     print(f"    Итераций: {n_iter},  вычислений f: {n_f},  f': {n_df},  f'': {n_d2f}")
-    print(f"    Время: {elapsed*1e6:.2f} мкс,  α = {alpha:.4f}")
+    print(f"    Время: {elapsed * 1e6:.2f} мкс,  α = {alpha:.4f}")
     print()
 
 
@@ -61,12 +61,14 @@ def dichotomy(a, b, eps1=EPS1, eps2=EPS2):
     n_iter = n_f = 0
     history = []
     t0 = time.perf_counter()
-    fa = f(a); fb = f(b)
+    fa = f(a)
+    fb = f(b)
     n_f += 2
     while True:
         c = (a + b) / 2
         fc = f(c)
-        n_f += 1; n_iter += 1
+        n_f += 1
+        n_iter += 1
         history.append(c)
         if (b - a) / 2 < eps1 or abs(fc) < eps2:
             break
@@ -90,7 +92,8 @@ def chords(a, b, eps1=EPS1, eps2=EPS2):
     fan, fbn = fa, fb
     x_prev = a
     x = a - fan / (fbn - fan) * (bn - an)
-    n_f += 1; n_iter += 1
+    n_f += 1
+    n_iter += 1
     history.append(an)
     history.append(x)
     while True:
@@ -160,12 +163,15 @@ def newton(a, b, eps1=EPS1, eps2=EPS2):
     # Выбор начального приближения: x0 там, где f*f'' > 0
     fa, d2fa = f(a), d2f(a)
     fb, d2fb = f(b), d2f(b)
-    n_f += 2; n_d2f += 2
+    n_f += 2
+    n_d2f += 2
     x = a if fa * d2fa > 0 else b
     history.append(x)
     while True:
-        fx = f(x); dfx = df(x)
-        n_f += 1; n_df += 1
+        fx = f(x)
+        dfx = df(x)
+        n_f += 1
+        n_df += 1
         x_new = x - fx / dfx
         n_iter += 1
         history.append(x_new)
@@ -199,7 +205,7 @@ def simple_iteration(a, b, eps1=EPS1, eps2=EPS2):
     mindf = min(dfs_vals)
     s = maxdf + mindf
     if abs(s) > 1e-12:
-        tau = 2.0 / s   # правильный знак: tau > 0 если f'>0, tau < 0 если f'<0
+        tau = 2.0 / s  # правильный знак: tau > 0 если f'>0, tau < 0 если f'<0
     else:
         Mabs = max(abs(v) for v in dfs_vals)
         tau = 1.0 / Mabs if Mabs > 1e-12 else 0.01
@@ -231,7 +237,8 @@ def combined(a, b, eps1=EPS1, eps2=EPS2):
     t0 = time.perf_counter()
     fa, fb = f(a), f(b)
     d2fa = d2f(a)
-    n_f += 2; n_d2f += 1
+    n_f += 2
+    n_d2f += 1
     # Ньютон стартует с того конца, где f*f'' > 0
     if fa * d2fa > 0:
         xN, xC = a, b  # xN — Ньютон, xC — хорды
@@ -240,12 +247,15 @@ def combined(a, b, eps1=EPS1, eps2=EPS2):
     history.append(xN)
     history.append(xC)
     while True:
-        fxN = f(xN); dfxN = df(xN)
+        fxN = f(xN)
+        dfxN = df(xN)
         fxC = f(xC)
-        n_f += 2; n_df += 1
+        n_f += 2
+        n_df += 1
         xN_new = xN - fxN / dfxN
         xC_new = xC - fxC / (f(xN) - fxC) * (xN - xC)
-        n_f += 1; n_iter += 1
+        n_f += 1
+        n_iter += 1
         history.append(xN_new)
         if abs(xN_new - xC_new) < eps1 or abs(fxN) < eps2:
             xN = xN_new
@@ -272,8 +282,8 @@ def main():
     print(f"\nНайдено {len(intervals)} корней.\n")
 
     for i, (ai, bi) in enumerate(intervals):
-        print(f"{'─'*60}")
-        print(f"Корень #{i+1} на [{ai:.2f}, {bi:.2f}]")
+        print(f"{'─' * 60}")
+        print(f"Корень #{i + 1} на [{ai:.2f}, {bi:.2f}]")
         print()
         dichotomy(ai, bi)
         chords(ai, bi)
