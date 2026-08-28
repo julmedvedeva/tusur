@@ -1,9 +1,5 @@
-"""
-Лабораторная работа №1: веб-приложение на Flask.
-Вариант 10: рисует на картинке вертикальный или горизонтальный крест
-заданного цвета, строит гистограммы распределения цветов исходного
-и нового изображения.
-"""
+# ЛР1 по веб-сервисам, вариант 10
+# крест на картинке + гистограммы каналов до/после
 import base64
 import io
 import os
@@ -11,14 +7,13 @@ import random
 import uuid
 
 import matplotlib
-
-matplotlib.use("Agg")
+matplotlib.use("Agg")  # без этого падает на сервере без дисплея
 import matplotlib.pyplot as plt
 from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from PIL import Image, ImageDraw
 
-_ = load_dotenv()
+load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_DIR = os.path.join(BASE_DIR, "static", "uploads")
@@ -26,38 +21,41 @@ GENERATED_DIR = os.path.join(BASE_DIR, "static", "generated")
 ALLOWED_EXT = {"png", "jpg", "jpeg", "bmp"}
 
 app = Flask(__name__)
-
-
-
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-key")
-app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # 10 MB
+app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # 10 мб, больше не пропускаем
 
 
-def allowed_file(filename):
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXT
+def allowed_file(fname):
+    return "." in fname and fname.rsplit(".", 1)[1].lower() in ALLOWED_EXT
 
 
 def new_captcha():
+    # простая капча - сложение двух цифр, ответ кладем в сессию
     a, b = random.randint(1, 9), random.randint(1, 9)
     session["captcha_answer"] = a + b
     return f"{a} + {b}"
 
 
-def draw_cross(image: Image.Image, orientation: str, color: tuple, thickness: int) -> Image.Image:
+def draw_cross(image, orientation, color, thickness):
     img = image.convert("RGB").copy()
     draw = ImageDraw.Draw(img)
     w, h = img.size
     cx, cy = w // 2, h // 2
+
     if orientation in ("vertical", "both"):
         draw.rectangle([cx - thickness // 2, 0, cx + thickness // 2, h], fill=color)
     if orientation in ("horizontal", "both"):
         draw.rectangle([0, cy - thickness // 2, w, cy + thickness // 2], fill=color)
+
     return img
 
 
-def histogram_png_base64(image: Image.Image, title: str) -> str:
+def histogram_png_base64(image, title):
+    # строим гистограмму по трём каналам и сразу отдаём как base64,
+    # чтобы не плодить временные png на диске
     img = image.convert("RGB")
     r, g, b = img.split()
+
     fig, ax = plt.subplots(figsize=(5, 3))
     ax.hist(list(r.getdata()), bins=256, range=(0, 255), color="red", alpha=0.5, label="R")
     ax.hist(list(g.getdata()), bins=256, range=(0, 255), color="green", alpha=0.5, label="G")
@@ -100,6 +98,7 @@ def process():
         color = tuple(int(color_hex[i:i + 2], 16) for i in (0, 2, 4))
     except ValueError:
         color = (255, 0, 0)
+
     try:
         thickness = max(1, int(request.form.get("thickness", 10)))
     except ValueError:
@@ -108,6 +107,7 @@ def process():
     os.makedirs(UPLOAD_DIR, exist_ok=True)
     os.makedirs(GENERATED_DIR, exist_ok=True)
 
+    # уникальный префикс, чтобы файлы разных юзеров не затирали друг друга
     uid = uuid.uuid4().hex
     ext = file.filename.rsplit(".", 1)[1].lower()
     original_name = f"{uid}_original.{ext}"

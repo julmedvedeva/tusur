@@ -46,7 +46,7 @@
 <a name="1"></a>
 ## 1 Цель работы
 
-Освоить разработку веб-приложений на Python с использованием фреймворка Flask: обработку загружаемых пользователем файлов, генерацию изображений и графиков на сервере, защиту веб-формы от автоматических запросов (капча), настройку непрерывной интеграции (CI) и развёртывание приложения на сервере через WSGI-сервер Gunicorn.
+Научиться делать веб-приложение на Flask: принимать файлы от пользователя, генерировать изображения и графики на сервере, защищать форму от ботов капчей, настроить CI и выложить приложение на сервер через Gunicorn.
 
 ---
 
@@ -65,15 +65,15 @@
 <a name="3"></a>
 ## 3 Краткое теоретическое введение
 
-**Flask** — микрофреймворк для Python, предоставляющий маршрутизацию HTTP-запросов, шаблонизатор Jinja2 и работу с сессиями поверх WSGI. Используется для построения серверной логики приложения без избыточной инфраструктуры «полного» фреймворка.
+**Flask** — микрофреймворк для Python. Даёт маршрутизацию запросов, шаблонизатор Jinja2 и сессии поверх WSGI, без лишней обвязки, которая есть у «полных» фреймворков вроде Django.
 
-**Pillow (PIL)** — библиотека обработки растровых изображений: загрузка, изменение и сохранение файлов различных форматов (PNG, JPEG, BMP), рисование геометрических примитивов на изображении.
+**Pillow (PIL)** — библиотека для работы с растровыми изображениями: открыть файл, что-то на нём нарисовать, сохранить обратно в PNG/JPEG/BMP.
 
-**Matplotlib** — библиотека построения графиков; в данной работе используется для построения гистограмм распределения значений цветовых каналов (R, G, B) изображения.
+**Matplotlib** — тут используется только для одного: построить гистограммы по каналам R/G/B и отдать картинку.
 
-**Gunicorn (Green Unicorn)** — WSGI HTTP-сервер для запуска Python веб-приложений в production-режиме (в отличие от встроенного отладочного сервера Flask, не предназначенного для реальной эксплуатации).
+**Gunicorn** — WSGI-сервер, на котором Flask-приложение реально можно держать в проде. Встроенный сервер разработки (`app.run()`) для этого не годится — так и написано в его же предупреждении в консоли.
 
-**Непрерывная интеграция (CI)** — практика автоматической проверки работоспособности проекта при каждом коммите/push: установка зависимостей, запуск проверок — с целью раннего обнаружения ошибок сборки.
+**CI** — при каждом push GitHub Actions ставит зависимости и проверяет, что модуль вообще импортируется, без ошибок синтаксиса/зависимостей.
 
 ---
 
@@ -207,7 +207,7 @@ sudo systemctl status lab1
 <a name="8"></a>
 ## 8 Выводы
 
-Разработано веб-приложение на Flask, реализующее наложение цветного креста на изображение с последующим построением гистограмм распределения цветовых каналов исходного и обработанного изображений. Реализована базовая защита формы от автоматических запросов через капчу на основе серверной сессии. Настроена непрерывная интеграция средствами GitHub Actions (проверка установки зависимостей и корректности импорта приложения). Приложение подготовлено к промышленному запуску через WSGI-сервер Gunicorn и развёрнуто на VPS как самостоятельный systemd-сервис на отдельном порту, изолированно от уже работающих на сервере сервисов.
+Сделала веб-приложение на Flask: рисует крест на картинке и строит гистограммы каналов до/после. Форма закрыта простой капчей на сессии. CI в GitHub Actions проверяет, что зависимости ставятся и приложение импортируется без ошибок. На сервере крутится через Gunicorn как отдельный systemd-сервис на своём порту — существующий на VPS сервис (nginx на 80-м) не трогала.
 
 ---
 
@@ -228,12 +228,8 @@ sudo systemctl status lab1
 Файл: `web-services-course/labs/lab1/app.py`
 
 ```python
-"""
-Лабораторная работа №1: веб-приложение на Flask.
-Вариант 10: рисует на картинке вертикальный или горизонтальный крест
-заданного цвета, строит гистограммы распределения цветов исходного
-и нового изображения.
-"""
+# ЛР1 по веб-сервисам, вариант 10
+# крест на картинке + гистограммы каналов до/после
 import base64
 import io
 import os
@@ -241,14 +237,13 @@ import random
 import uuid
 
 import matplotlib
-
-matplotlib.use("Agg")
+matplotlib.use("Agg")  # без этого падает на сервере без дисплея
 import matplotlib.pyplot as plt
 from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from PIL import Image, ImageDraw
 
-_ = load_dotenv()
+load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_DIR = os.path.join(BASE_DIR, "static", "uploads")
@@ -256,40 +251,41 @@ GENERATED_DIR = os.path.join(BASE_DIR, "static", "generated")
 ALLOWED_EXT = {"png", "jpg", "jpeg", "bmp"}
 
 app = Flask(__name__)
-
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-key")
-app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # 10 MB
+app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # 10 мб, больше не пропускаем
 
 
-def allowed_file(filename):
-    # Проверка расширения файла из белого списка ALLOWED_EXT
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXT
+def allowed_file(fname):
+    return "." in fname and fname.rsplit(".", 1)[1].lower() in ALLOWED_EXT
 
 
 def new_captcha():
-    # Генерация примера на сложение, ответ сохраняется в сессии пользователя
+    # простая капча - сложение двух цифр, ответ кладем в сессию
     a, b = random.randint(1, 9), random.randint(1, 9)
     session["captcha_answer"] = a + b
     return f"{a} + {b}"
 
 
-def draw_cross(image: Image.Image, orientation: str, color: tuple, thickness: int) -> Image.Image:
-    # Рисует крест заданной ориентации, цвета и толщины по центру изображения
+def draw_cross(image, orientation, color, thickness):
     img = image.convert("RGB").copy()
     draw = ImageDraw.Draw(img)
     w, h = img.size
     cx, cy = w // 2, h // 2
+
     if orientation in ("vertical", "both"):
         draw.rectangle([cx - thickness // 2, 0, cx + thickness // 2, h], fill=color)
     if orientation in ("horizontal", "both"):
         draw.rectangle([0, cy - thickness // 2, w, cy + thickness // 2], fill=color)
+
     return img
 
 
-def histogram_png_base64(image: Image.Image, title: str) -> str:
-    # Строит гистограмму каналов R/G/B, возвращает PNG в виде base64-строки
+def histogram_png_base64(image, title):
+    # строим гистограмму по трём каналам и сразу отдаём как base64,
+    # чтобы не плодить временные png на диске
     img = image.convert("RGB")
     r, g, b = img.split()
+
     fig, ax = plt.subplots(figsize=(5, 3))
     ax.hist(list(r.getdata()), bins=256, range=(0, 255), color="red", alpha=0.5, label="R")
     ax.hist(list(g.getdata()), bins=256, range=(0, 255), color="green", alpha=0.5, label="G")
@@ -315,26 +311,24 @@ def index():
 
 @app.route("/process", methods=["POST"])
 def process():
-    # Проверка капчи
     captcha_input = request.form.get("captcha", "").strip()
     expected = session.get("captcha_answer")
     if expected is None or not captcha_input.isdigit() or int(captcha_input) != expected:
         flash("Неверный ответ капчи. Попробуйте ещё раз.")
         return redirect(url_for("index"))
 
-    # Валидация загруженного файла
     file = request.files.get("image")
     if not file or file.filename == "" or not allowed_file(file.filename):
         flash("Загрузите изображение в формате png/jpg/jpeg/bmp.")
         return redirect(url_for("index"))
 
-    # Параметры креста из формы
     orientation = request.form.get("orientation", "vertical")
     color_hex = request.form.get("color", "#ff0000").lstrip("#")
     try:
         color = tuple(int(color_hex[i:i + 2], 16) for i in (0, 2, 4))
     except ValueError:
         color = (255, 0, 0)
+
     try:
         thickness = max(1, int(request.form.get("thickness", 10)))
     except ValueError:
@@ -343,7 +337,7 @@ def process():
     os.makedirs(UPLOAD_DIR, exist_ok=True)
     os.makedirs(GENERATED_DIR, exist_ok=True)
 
-    # Сохранение исходного и обработанного изображений под уникальными именами
+    # уникальный префикс, чтобы файлы разных юзеров не затирали друг друга
     uid = uuid.uuid4().hex
     ext = file.filename.rsplit(".", 1)[1].lower()
     original_name = f"{uid}_original.{ext}"
