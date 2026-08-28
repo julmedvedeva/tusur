@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: web-services-course/labs/lab1
+        working-directory: web_services_course/labs/lab1
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

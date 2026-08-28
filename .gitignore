@@ -48,6 +48,6 @@ node_modules
 subject.md
 .claude/
 
-web-services-course/materials/labs.md
-web-services-course/materials/lab1-explained.md
-web-services-course/materials/lab2-explained.md
+web_services_course/materials/labs.md
+web_services_course/materials/lab1-explained.md
+web_services_course/materials/lab2-explained.md

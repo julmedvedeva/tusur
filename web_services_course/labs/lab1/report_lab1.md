@@ -161,10 +161,10 @@ SECRET_KEY=<случайная шестнадцатеричная строка, 
 # 1. Клонирование только нужного каталога репозитория (sparse-checkout)
 git clone --filter=blob:none --sparse https://github.com/julmedvedeva/tusur.git tusur-web
 cd tusur-web
-git sparse-checkout set web-services-course/labs/lab1
+git sparse-checkout set web_services_course/labs/lab1
 
 # 2. Виртуальное окружение и зависимости
-cd web-services-course/labs/lab1
+cd web_services_course/labs/lab1
 sudo apt install python3.10-venv
 python3 -m venv venv
 source venv/bin/activate
@@ -388,7 +388,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: web-services-course/labs/lab1
+        working-directory: web_services_course/labs/lab1
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
