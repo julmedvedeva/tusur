@@ -9,6 +9,7 @@ import uuid
 import matplotlib
 matplotlib.use("Agg")  # без этого падает на сервере без дисплея
 import matplotlib.pyplot as plt
+import numpy as np
 from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from PIL import Image, ImageDraw
@@ -19,6 +20,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_DIR = os.path.join(BASE_DIR, "static", "uploads")
 GENERATED_DIR = os.path.join(BASE_DIR, "static", "generated")
 ALLOWED_EXT = {"png", "jpg", "jpeg", "bmp"}
+MAX_DIMENSION = 4000  # сторона в пикселях; больше — даунскейлим, иначе гистограмма кладёт воркер по CPU/таймауту
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-key")
@@ -34,6 +36,14 @@ def new_captcha():
     a, b = random.randint(1, 9), random.randint(1, 9)
     session["captcha_answer"] = a + b
     return f"{a} + {b}"
+
+
+def downscale_if_huge(image):
+    if max(image.size) <= MAX_DIMENSION:
+        return image
+    img = image.copy()
+    img.thumbnail((MAX_DIMENSION, MAX_DIMENSION), Image.LANCZOS)
+    return img
 
 
 def draw_cross(image, orientation, color, thickness):
@@ -53,13 +63,12 @@ def draw_cross(image, orientation, color, thickness):
 def histogram_png_base64(image, title):
     # строим гистограмму по трём каналам и сразу отдаём как base64,
     # чтобы не плодить временные png на диске
-    img = image.convert("RGB")
-    r, g, b = img.split()
+    arr = np.asarray(image.convert("RGB"))
 
     fig, ax = plt.subplots(figsize=(5, 3))
-    ax.hist(list(r.getdata()), bins=256, range=(0, 255), color="red", alpha=0.5, label="R")
-    ax.hist(list(g.getdata()), bins=256, range=(0, 255), color="green", alpha=0.5, label="G")
-    ax.hist(list(b.getdata()), bins=256, range=(0, 255), color="blue", alpha=0.5, label="B")
+    ax.hist(arr[:, :, 0].ravel(), bins=256, range=(0, 255), color="red", alpha=0.5, label="R")
+    ax.hist(arr[:, :, 1].ravel(), bins=256, range=(0, 255), color="green", alpha=0.5, label="G")
+    ax.hist(arr[:, :, 2].ravel(), bins=256, range=(0, 255), color="blue", alpha=0.5, label="B")
     ax.set_title(title)
     ax.set_xlabel("Значение канала")
     ax.set_ylabel("Кол-во пикселей")
@@ -116,7 +125,7 @@ def process():
     result_path = os.path.join(GENERATED_DIR, result_name)
 
     file.save(original_path)
-    original_image = Image.open(original_path)
+    original_image = downscale_if_huge(Image.open(original_path))
     result_image = draw_cross(original_image, orientation, color, thickness)
     result_image.save(result_path)
 

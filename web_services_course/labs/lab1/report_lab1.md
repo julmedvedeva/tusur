@@ -88,6 +88,7 @@
 Flask==3.0.3
 Pillow==10.4.0
 matplotlib==3.9.2
+numpy==2.0.1
 gunicorn==22.0.0
 python-dotenv==1.0.1
 ```
@@ -129,7 +130,8 @@ SECRET_KEY=<случайная шестнадцатеричная строка, 
 5. Реализовано построение гистограмм распределения каналов R/G/B (`histogram_png_base64`) для исходного и итогового изображений средствами Matplotlib; графики кодируются в base64 и встраиваются в HTML напрямую, без сохранения промежуточных файлов на диск.
 6. Страница результата (`result.html`) выводит оба изображения и обе гистограммы рядом.
 7. Настроен CI (GitHub Actions, `.github/workflows/ci.yml`): при каждом push/pull request в ветки `web_services_course`/`main` выполняется установка зависимостей и проверка успешного импорта модуля `app.py`.
-8. Настроен запуск через Gunicorn (`Procfile`: `web: gunicorn app:app`) и выполнено развёртывание на VPS (см. раздел 7).
+8. Настроен запуск через Gunicorn (`Procfile`: `web: gunicorn --timeout 60 app:app`) и выполнено развёртывание на VPS (см. раздел 7).
+9. Устранена проблема зависания `/process` на больших изображениях: `histogram_png_base64` переписана на `numpy` (`np.asarray` + `.ravel()` вместо `list(image.getdata())`), добавлен даунскейл входного изображения свыше `MAX_DIMENSION=4000` px (`downscale_if_huge`), в Procfile и systemd-юните задан `--timeout 60` вместо дефолтных 30 секунд gunicorn.
 
 ---
 
@@ -174,6 +176,8 @@ pip install -r requirements.txt
 echo "SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_hex(16))')" > .env
 ```
 
+Файл `.env` создаётся вручную непосредственно на сервере (см. шаг 3) и в репозиторий не попадает — он исключён в `.gitignore`. Значение `SECRET_KEY`, используемое в проде, отличается от значения при локальной разработке и нигде, кроме сервера, не хранится.
+
 **systemd-юнит** `/etc/systemd/system/lab1.service`:
 
 ```ini
@@ -183,9 +187,9 @@ After=network.target
 
 [Service]
 User=ubuntu
-WorkingDirectory=/home/ubuntu/tusur-web/web-services-course/labs/lab1
-Environment="PATH=/home/ubuntu/tusur-web/web-services-course/labs/lab1/venv/bin"
-ExecStart=/home/ubuntu/tusur-web/web-services-course/labs/lab1/venv/bin/gunicorn --workers 2 --bind 0.0.0.0:8001 app:app
+WorkingDirectory=/home/ubuntu/tusur-web/web_services_course/labs/lab1
+Environment="PATH=/home/ubuntu/tusur-web/web_services_course/labs/lab1/venv/bin"
+ExecStart=/home/ubuntu/tusur-web/web_services_course/labs/lab1/venv/bin/gunicorn --workers 2 --timeout 60 --bind 0.0.0.0:8001 app:app
 Restart=always
 
 [Install]
@@ -225,7 +229,7 @@ sudo systemctl status lab1
 <a name="10"></a>
 ## Приложение А (обязательное) — Листинг программы
 
-Файл: `web-services-course/labs/lab1/app.py`
+Файл: `web_services_course/labs/lab1/app.py`
 
 ```python
 # ЛР1 по веб-сервисам, вариант 10
@@ -239,6 +243,7 @@ import uuid
 import matplotlib
 matplotlib.use("Agg")  # без этого падает на сервере без дисплея
 import matplotlib.pyplot as plt
+import numpy as np
 from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from PIL import Image, ImageDraw
@@ -249,6 +254,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_DIR = os.path.join(BASE_DIR, "static", "uploads")
 GENERATED_DIR = os.path.join(BASE_DIR, "static", "generated")
 ALLOWED_EXT = {"png", "jpg", "jpeg", "bmp"}
+MAX_DIMENSION = 4000  # сторона в пикселях; больше — даунскейлим, иначе гистограмма кладёт воркер по CPU/таймауту
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-key")
@@ -264,6 +270,14 @@ def new_captcha():
     a, b = random.randint(1, 9), random.randint(1, 9)
     session["captcha_answer"] = a + b
     return f"{a} + {b}"
+
+
+def downscale_if_huge(image):
+    if max(image.size) <= MAX_DIMENSION:
+        return image
+    img = image.copy()
+    img.thumbnail((MAX_DIMENSION, MAX_DIMENSION), Image.LANCZOS)
+    return img
 
 
 def draw_cross(image, orientation, color, thickness):
@@ -283,13 +297,12 @@ def draw_cross(image, orientation, color, thickness):
 def histogram_png_base64(image, title):
     # строим гистограмму по трём каналам и сразу отдаём как base64,
     # чтобы не плодить временные png на диске
-    img = image.convert("RGB")
-    r, g, b = img.split()
+    arr = np.asarray(image.convert("RGB"))
 
     fig, ax = plt.subplots(figsize=(5, 3))
-    ax.hist(list(r.getdata()), bins=256, range=(0, 255), color="red", alpha=0.5, label="R")
-    ax.hist(list(g.getdata()), bins=256, range=(0, 255), color="green", alpha=0.5, label="G")
-    ax.hist(list(b.getdata()), bins=256, range=(0, 255), color="blue", alpha=0.5, label="B")
+    ax.hist(arr[:, :, 0].ravel(), bins=256, range=(0, 255), color="red", alpha=0.5, label="R")
+    ax.hist(arr[:, :, 1].ravel(), bins=256, range=(0, 255), color="green", alpha=0.5, label="G")
+    ax.hist(arr[:, :, 2].ravel(), bins=256, range=(0, 255), color="blue", alpha=0.5, label="B")
     ax.set_title(title)
     ax.set_xlabel("Значение канала")
     ax.set_ylabel("Кол-во пикселей")
@@ -346,7 +359,7 @@ def process():
     result_path = os.path.join(GENERATED_DIR, result_name)
 
     file.save(original_path)
-    original_image = Image.open(original_path)
+    original_image = downscale_if_huge(Image.open(original_path))
     result_image = draw_cross(original_image, orientation, color, thickness)
     result_image.save(result_path)
 
