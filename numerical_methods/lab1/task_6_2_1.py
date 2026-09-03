@@ -1,19 +1,14 @@
 """
-Задание 6.2.1 — Решение системы линейных алгебраических уравнений
+Задание 6.2.1 - Решение системы линейных алгебраических уравнений
 методом Гаусса с частичным выбором ведущего элемента.
 Вариант 10:
   7.9x1 + 5.6x2 + 5.7x3 - 7.2x4 = 6.68
   8.5x1 - 4.8x2 + 0.8x3 + 3.5x4 = 9.95
   4.3x1 + 4.2x2 - 3.2x3 + 9.3x4 = 8.6
   3.2x1 - 1.4x2 - 8.9x3 + 3.3x4 = 1.0
-
-Ведущая строка на каждом шаге выбирается не физической перестановкой строк
-матрицы, а перестановкой индексов в массиве порядка обхода `order`: это
-избавляет от лишнего копирования строк и явно отделяет "логический" номер
-строки от её позиции в исходном массиве.
 """
 
-ORDER_N = 4
+N = 4
 MATRIX_A = [
     [7.9, 5.6, 5.7, -7.2],
     [8.5, -4.8, 0.8, 3.5],
@@ -23,67 +18,111 @@ MATRIX_A = [
 VECTOR_B = [6.68, 9.95, 8.6, 1.0]
 
 
-def show_matrix(title, rows):
+def print_matrix(title, rows):
     print(f"  {title}")
     for row in rows:
-        cells = "  ".join(f"{value:9.4f}" for value in row)
-        print(f"    | {cells} |")
+        line = "    | "
+        for value in row:
+            line += f"{value:9.4f} "
+        line += "|"
+        print(line)
 
 
-def eliminate_forward(aug, n):
-    """Прямой ход: возвращает порядок строк order, приводящий aug к треугольному виду."""
-    order = list(range(n))
-    for step in range(n):
-        candidates = range(step, n)
-        best = max(candidates, key=lambda i: abs(aug[order[i]][step]))
-        order[step], order[best] = order[best], order[step]
-
-        lead_row = aug[order[step]]
-        lead_value = lead_row[step]
-        for i in range(step + 1, n):
-            row = aug[order[i]]
-            ratio = row[step] / lead_value
-            for col in range(step, n + 1):
-                row[col] -= ratio * lead_row[col]
-
-        print(f"\n  Шаг {step + 1} прямого хода (ведущая строка исходно №{order[step] + 1}):")
-        show_matrix("расширенная матрица в текущем порядке:", [aug[order[i]] for i in range(n)])
-    return order
+def build_augmented(a, b, n):
+    aug = []
+    for i in range(n):
+        row = []
+        for j in range(n):
+            row.append(a[i][j])
+        row.append(b[i])
+        aug.append(row)
+    return aug
 
 
-def substitute_backward(aug, order, n):
+def swap_rows(aug, i, k):
+    aug[i], aug[k] = aug[k], aug[i]
+
+
+def find_pivot_row(aug, col, n):
+    """Ищет строку с наибольшим по модулю элементом в столбце col среди строк col..n-1."""
+    pivot_row = col
+    pivot_value = abs(aug[col][col])
+    row = col + 1
+    while row < n:
+        if abs(aug[row][col]) > pivot_value:
+            pivot_value = abs(aug[row][col])
+            pivot_row = row
+        row += 1
+    return pivot_row
+
+
+def forward_elimination(aug, n):
+    for col in range(n - 1):
+        pivot_row = find_pivot_row(aug, col, n)
+        if pivot_row != col:
+            swap_rows(aug, col, pivot_row)
+
+        pivot = aug[col][col]
+        row = col + 1
+        while row < n:
+            factor = aug[row][col] / pivot
+            j = col
+            while j <= n:
+                aug[row][j] = aug[row][j] - factor * aug[col][j]
+                j += 1
+            row += 1
+
+        print(f"\n  Шаг {col + 1} прямого хода (ведущий элемент в строке {col + 1}):")
+        print_matrix("расширенная матрица:", aug)
+
+
+def back_substitution(aug, n):
     x = [0.0] * n
-    for i in range(n - 1, -1, -1):
-        row = aug[order[i]]
-        known_sum = sum(row[j] * x[j] for j in range(i + 1, n))
-        x[i] = (row[n] - known_sum) / row[i]
+    row = n - 1
+    while row >= 0:
+        s = aug[row][n]
+        col = row + 1
+        while col < n:
+            s -= aug[row][col] * x[col]
+            col += 1
+        x[row] = s / aug[row][row]
+        row -= 1
     return x
 
 
-def residual_vector(a, x, b):
-    n = len(b)
-    r = [b[i] - sum(a[i][j] * x[j] for j in range(n)) for i in range(n)]
-    return r, max(abs(v) for v in r)
+def compute_residual(a, x, b, n):
+    r = []
+    for i in range(n):
+        s = b[i]
+        for j in range(n):
+            s -= a[i][j] * x[j]
+        r.append(s)
+    r_norm = 0.0
+    for v in r:
+        if abs(v) > r_norm:
+            r_norm = abs(v)
+    return r, r_norm
 
 
 def main():
-    n = ORDER_N
     print("=" * 60)
     print("Задание 6.2.1. Вариант 10. Метод Гаусса (схема частичного выбора).")
     print("Входные данные:")
-    print(f"  порядок системы n = {n}")
-    show_matrix("матрица A:", MATRIX_A)
+    print(f"  порядок системы n = {N}")
+    print_matrix("матрица A:", MATRIX_A)
     print(f"  вектор b = {VECTOR_B}")
     print("=" * 60)
 
-    augmented = [list(MATRIX_A[i]) + [VECTOR_B[i]] for i in range(n)]
-    order = eliminate_forward(augmented, n)
-    x = substitute_backward(augmented, order, n)
-    r, r_norm = residual_vector(MATRIX_A, x, VECTOR_B)
+    aug = build_augmented(MATRIX_A, VECTOR_B, N)
+    forward_elimination(aug, N)
+    x = back_substitution(aug, N)
+    r, r_norm = compute_residual(MATRIX_A, x, VECTOR_B, N)
 
     print("\nВыходные данные:")
-    print("  решение x = [" + ", ".join(f"{v:.6f}" for v in x) + "]")
-    print("  невязка r = b - A*x = [" + ", ".join(f"{v:.3e}" for v in r) + "]")
+    x_str = ", ".join(f"{v:.6f}" for v in x)
+    print(f"  решение x = [{x_str}]")
+    r_str = ", ".join(f"{v:.3e}" for v in r)
+    print(f"  невязка r = b - A*x = [{r_str}]")
     print(f"  ||r||_inf = {r_norm:.3e}")
 
 

@@ -1,0 +1,17 @@
+[
+  {"title": "West End Blues", "artist": "Louis Armstrong", "genre": "Dixieland", "duration_sec": 191, "year": 1928, "rating": 4.8},
+  {"title": "Take the A Train", "artist": "Duke Ellington", "genre": "Swing", "duration_sec": 176, "year": 1941, "rating": 4.9},
+  {"title": "Cherokee", "artist": "Charlie Parker", "genre": "Bebop", "duration_sec": 202, "year": 1945, "rating": 4.7},
+  {"title": "So What", "artist": "Miles Davis", "genre": "Modal Jazz", "duration_sec": 562, "year": 1959, "rating": 5.0},
+  {"title": "Giant Steps", "artist": "John Coltrane", "genre": "Hard Bop", "duration_sec": 286, "year": 1960, "rating": 4.9},
+  {"title": "Take Five", "artist": "Dave Brubeck", "genre": "Cool Jazz", "duration_sec": 324, "year": 1959, "rating": 4.8},
+  {"title": "Cantaloupe Island", "artist": "Herbie Hancock", "genre": "Post-Bop", "duration_sec": 335, "year": 1964, "rating": 4.6},
+  {"title": "Chameleon", "artist": "Herbie Hancock", "genre": "Jazz Fusion", "duration_sec": 963, "year": 1973, "rating": 4.5},
+  {"title": "Birdland", "artist": "Weather Report", "genre": "Jazz Fusion", "duration_sec": 335, "year": 1977, "rating": 4.4},
+  {"title": "Feels Good", "artist": "Grover Washington Jr.", "genre": "Smooth Jazz", "duration_sec": 297, "year": 1975, "rating": 4.0},
+  {"title": "Blue in Green", "artist": "Bill Evans Trio", "genre": "Modal Jazz", "duration_sec": 337, "year": 1959, "rating": 4.9},
+  {"title": "Watermelon Man", "artist": "Herbie Hancock", "genre": "Hard Bop", "duration_sec": 424, "year": 1962, "rating": 4.5},
+  {"title": "Body and Soul", "artist": "Coleman Hawkins", "genre": "Swing", "duration_sec": 187, "year": 1939, "rating": 4.7},
+  {"title": "Autumn Leaves", "artist": "Cannonball Adderley", "genre": "Hard Bop", "duration_sec": 660, "year": 1958, "rating": 4.6},
+  {"title": "Nardis", "artist": "Bill Evans", "genre": "Modal Jazz", "duration_sec": 512, "year": 1975, "rating": 4.3}
+]

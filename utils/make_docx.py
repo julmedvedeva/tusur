@@ -172,7 +172,7 @@ def style_tables(doc):
 def set_margins(doc):
     for s in doc.sections:
         s.left_margin = Cm(3)
-        s.right_margin = Cm(1)
+        s.right_margin = Cm(1.5)
         s.top_margin = Cm(2)
         s.bottom_margin = Cm(2)
 

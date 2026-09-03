@@ -182,7 +182,7 @@ $$\begin{cases}
 
 ### 2.2 Теоретический материал
 
-**Метод Гаусса с частичным выбором ведущего элемента.** Прямой ход: на шаге k среди элементов k-го столбца строк k…n выбирается наибольший по модулю (ведущий). В реализации выбор ведущей строки фиксируется не физической перестановкой строк матрицы, а перестановкой индексов в массиве порядка обхода `order` — строка со своим исходным номером остаётся на месте, но обрабатывается в новом логическом порядке. Из нижележащих (в этом порядке) строк вычитается ведущая строка, умноженная на коэффициент, обнуляющий элемент в столбце k. После n шагов расширенная матрица (в порядке `order`) приведена к верхнетреугольному виду. Обратный ход: переменные вычисляются последовательно от xₙ до x₁ подстановкой уже найденных значений:
+**Метод Гаусса с частичным выбором ведущего элемента.** Прямой ход: на шаге k среди элементов k-го столбца строк k…n ищется строка с наибольшим по модулю элементом (ведущая); если она не совпадает со строкой k, строки физически меняются местами. Из каждой нижележащей строки вычитается ведущая строка, умноженная на коэффициент, обнуляющий элемент в столбце k. После n−1 шагов расширенная матрица приведена к верхнетреугольному виду. Обратный ход: переменные вычисляются последовательно от xₙ до x₁ подстановкой уже найденных значений:
 
 $$x_i = \frac{1}{a_{ii}}\left(b_i - \sum_{j=i+1}^{n} a_{ij}x_j\right).$$
 
@@ -192,9 +192,9 @@ $$x_i = \frac{1}{a_{ii}}\left(b_i - \sum_{j=i+1}^{n} a_{ij}x_j\right).$$
 
 ### 2.3 Порядок выполнения работы
 
-1. Построение расширенной матрицы [A | b] и массива порядка обхода строк `order = [0, 1, 2, 3]`.
-2. Прямой ход: n−1 шагов исключения; на каждом шаге в `order` фиксируется номер ведущей строки, затем обнуляются элементы столбца в нижележащих (по порядку) строках.
-3. Обратный ход: вычисление x₄, x₃, x₂, x₁ по строкам в порядке `order`.
+1. Построение расширенной матрицы [A | b].
+2. Прямой ход: n−1 шагов исключения; на каждом шаге ищется ведущая строка, при необходимости строки меняются местами, затем обнуляются элементы столбца в нижележащих строках.
+3. Обратный ход: вычисление x₄, x₃, x₂, x₁ подстановкой уже найденных значений.
 4. Вычисление вектора невязки r = b − Ax и его нормы для контроля точности.
 
 ***
@@ -240,14 +240,14 @@ $$x_i = \frac{1}{a_{ii}}\left(b_i - \sum_{j=i+1}^{n} a_{ij}x_j\right).$$
 
 $$\det(A) = (-1)^s \prod_{i=1}^{n} u_{ii},$$
 
-где s — число выполненных перестановок строк. В реализации произведение не накапливается отдельно после завершения прямого хода, а домножается на очередной ведущий элемент сразу на каждом шаге исключения (`running_det *= pivot`), знак — по чётности счётчика перестановок `swaps`.
+где s — число выполненных перестановок строк. В реализации матрица сначала приводится к треугольному виду отдельной функцией (`eliminate_to_triangular`), которая попутно считает число перестановок строк `swap_count`; после завершения прямого хода определитель вычисляется как произведение диагональных элементов полученной треугольной матрицы (`product`) с учётом знака (−1)^`swap_count`.
 
 ***
 
 ### 3.3 Порядок выполнения работы
 
-1. Прямой ход метода Гаусса: на шаге k выбирается ведущий элемент, при необходимости строки физически меняются местами (счётчик перестановок `swaps` увеличивается), ведущий элемент сразу умножается в накопленное произведение `running_det`.
-2. После n шагов итоговый определитель — `running_det`, домноженный на знак (−1)ˢ.
+1. Прямой ход метода Гаусса: на шаге k выбирается ведущий элемент, при необходимости строки физически меняются местами (счётчик перестановок `swap_count` увеличивается).
+2. После n−1 шагов вычисляется произведение диагональных элементов треугольной матрицы `product` и итоговый определитель — `product`, домноженный на знак (−1)^`swap_count`.
 
 ***
 
@@ -474,21 +474,16 @@ if __name__ == "__main__":
 
 ```python
 """
-Задание 6.2.1 — Решение системы линейных алгебраических уравнений
+Задание 6.2.1 - Решение системы линейных алгебраических уравнений
 методом Гаусса с частичным выбором ведущего элемента.
 Вариант 10:
   7.9x1 + 5.6x2 + 5.7x3 - 7.2x4 = 6.68
   8.5x1 - 4.8x2 + 0.8x3 + 3.5x4 = 9.95
   4.3x1 + 4.2x2 - 3.2x3 + 9.3x4 = 8.6
   3.2x1 - 1.4x2 - 8.9x3 + 3.3x4 = 1.0
-
-Ведущая строка на каждом шаге выбирается не физической перестановкой строк
-матрицы, а перестановкой индексов в массиве порядка обхода `order`: это
-избавляет от лишнего копирования строк и явно отделяет "логический" номер
-строки от её позиции в исходном массиве.
 """
 
-ORDER_N = 4
+N = 4
 MATRIX_A = [
     [7.9, 5.6, 5.7, -7.2],
     [8.5, -4.8, 0.8, 3.5],
@@ -498,67 +493,111 @@ MATRIX_A = [
 VECTOR_B = [6.68, 9.95, 8.6, 1.0]
 
 
-def show_matrix(title, rows):
+def print_matrix(title, rows):
     print(f"  {title}")
     for row in rows:
-        cells = "  ".join(f"{value:9.4f}" for value in row)
-        print(f"    | {cells} |")
+        line = "    | "
+        for value in row:
+            line += f"{value:9.4f} "
+        line += "|"
+        print(line)
 
 
-def eliminate_forward(aug, n):
-    """Прямой ход: возвращает порядок строк order, приводящий aug к треугольному виду."""
-    order = list(range(n))
-    for step in range(n):
-        candidates = range(step, n)
-        best = max(candidates, key=lambda i: abs(aug[order[i]][step]))
-        order[step], order[best] = order[best], order[step]
-
-        lead_row = aug[order[step]]
-        lead_value = lead_row[step]
-        for i in range(step + 1, n):
-            row = aug[order[i]]
-            ratio = row[step] / lead_value
-            for col in range(step, n + 1):
-                row[col] -= ratio * lead_row[col]
-
-        print(f"\n  Шаг {step + 1} прямого хода (ведущая строка исходно №{order[step] + 1}):")
-        show_matrix("расширенная матрица в текущем порядке:", [aug[order[i]] for i in range(n)])
-    return order
+def build_augmented(a, b, n):
+    aug = []
+    for i in range(n):
+        row = []
+        for j in range(n):
+            row.append(a[i][j])
+        row.append(b[i])
+        aug.append(row)
+    return aug
 
 
-def substitute_backward(aug, order, n):
+def swap_rows(aug, i, k):
+    aug[i], aug[k] = aug[k], aug[i]
+
+
+def find_pivot_row(aug, col, n):
+    """Ищет строку с наибольшим по модулю элементом в столбце col среди строк col..n-1."""
+    pivot_row = col
+    pivot_value = abs(aug[col][col])
+    row = col + 1
+    while row < n:
+        if abs(aug[row][col]) > pivot_value:
+            pivot_value = abs(aug[row][col])
+            pivot_row = row
+        row += 1
+    return pivot_row
+
+
+def forward_elimination(aug, n):
+    for col in range(n - 1):
+        pivot_row = find_pivot_row(aug, col, n)
+        if pivot_row != col:
+            swap_rows(aug, col, pivot_row)
+
+        pivot = aug[col][col]
+        row = col + 1
+        while row < n:
+            factor = aug[row][col] / pivot
+            j = col
+            while j <= n:
+                aug[row][j] = aug[row][j] - factor * aug[col][j]
+                j += 1
+            row += 1
+
+        print(f"\n  Шаг {col + 1} прямого хода (ведущий элемент в строке {col + 1}):")
+        print_matrix("расширенная матрица:", aug)
+
+
+def back_substitution(aug, n):
     x = [0.0] * n
-    for i in range(n - 1, -1, -1):
-        row = aug[order[i]]
-        known_sum = sum(row[j] * x[j] for j in range(i + 1, n))
-        x[i] = (row[n] - known_sum) / row[i]
+    row = n - 1
+    while row >= 0:
+        s = aug[row][n]
+        col = row + 1
+        while col < n:
+            s -= aug[row][col] * x[col]
+            col += 1
+        x[row] = s / aug[row][row]
+        row -= 1
     return x
 
 
-def residual_vector(a, x, b):
-    n = len(b)
-    r = [b[i] - sum(a[i][j] * x[j] for j in range(n)) for i in range(n)]
-    return r, max(abs(v) for v in r)
+def compute_residual(a, x, b, n):
+    r = []
+    for i in range(n):
+        s = b[i]
+        for j in range(n):
+            s -= a[i][j] * x[j]
+        r.append(s)
+    r_norm = 0.0
+    for v in r:
+        if abs(v) > r_norm:
+            r_norm = abs(v)
+    return r, r_norm
 
 
 def main():
-    n = ORDER_N
     print("=" * 60)
     print("Задание 6.2.1. Вариант 10. Метод Гаусса (схема частичного выбора).")
     print("Входные данные:")
-    print(f"  порядок системы n = {n}")
-    show_matrix("матрица A:", MATRIX_A)
+    print(f"  порядок системы n = {N}")
+    print_matrix("матрица A:", MATRIX_A)
     print(f"  вектор b = {VECTOR_B}")
     print("=" * 60)
 
-    augmented = [list(MATRIX_A[i]) + [VECTOR_B[i]] for i in range(n)]
-    order = eliminate_forward(augmented, n)
-    x = substitute_backward(augmented, order, n)
-    r, r_norm = residual_vector(MATRIX_A, x, VECTOR_B)
+    aug = build_augmented(MATRIX_A, VECTOR_B, N)
+    forward_elimination(aug, N)
+    x = back_substitution(aug, N)
+    r, r_norm = compute_residual(MATRIX_A, x, VECTOR_B, N)
 
     print("\nВыходные данные:")
-    print("  решение x = [" + ", ".join(f"{v:.6f}" for v in x) + "]")
-    print("  невязка r = b - A*x = [" + ", ".join(f"{v:.3e}" for v in r) + "]")
+    x_str = ", ".join(f"{v:.6f}" for v in x)
+    print(f"  решение x = [{x_str}]")
+    r_str = ", ".join(f"{v:.3e}" for v in r)
+    print(f"  невязка r = b - A*x = [{r_str}]")
     print(f"  ||r||_inf = {r_norm:.3e}")
 
 
@@ -572,15 +611,11 @@ if __name__ == "__main__":
 
 ```python
 """
-Задание 6.2.2 — Вычисление определителя матрицы методом Гаусса.
+Задание 6.2.2 - Вычисление определителя матрицы методом Гаусса.
 Вариант 10: матрица из задания 6.2.1.
-
-В отличие от задания 6.2.1, здесь определитель накапливается прямо по ходу
-исключения — как произведение ведущих элементов на каждом шаге, домноженное
-на знак перестановок строк, — без построения отдельной "решающей" функции
-для системы уравнений.
 """
 
+N = 4
 MATRIX_A = [
     [7.9, 5.6, 5.7, -7.2],
     [8.5, -4.8, 0.8, 3.5],
@@ -589,34 +624,58 @@ MATRIX_A = [
 ]
 
 
-def determinant_by_running_product(matrix):
-    n = len(matrix)
-    work = [row[:] for row in matrix]
-    swaps = 0
-    running_det = 1.0
+def copy_matrix(a, n):
+    result = []
+    for i in range(n):
+        result.append(list(a[i]))
+    return result
 
-    for step in range(n):
-        lead = max(range(step, n), key=lambda r: abs(work[r][step]))
-        if lead != step:
-            work[step], work[lead] = work[lead], work[step]
-            swaps += 1
 
-        pivot = work[step][step]
-        if abs(pivot) < 1e-15:
-            print(f"  Шаг {step + 1}: ведущий элемент нулевой — det(A) = 0")
-            return 0.0
+def find_pivot_row(a, col, n):
+    pivot_row = col
+    pivot_value = abs(a[col][col])
+    row = col + 1
+    while row < n:
+        if abs(a[row][col]) > pivot_value:
+            pivot_value = abs(a[row][col])
+            pivot_row = row
+        row += 1
+    return pivot_row
 
-        running_det *= pivot
-        print(f"  Шаг {step + 1}: ведущий элемент = {pivot:.6f}, "
-              f"накопленное произведение = {running_det:.6f}, перестановок = {swaps}")
 
-        for row in range(step + 1, n):
-            ratio = work[row][step] / pivot
-            for col in range(step, n):
-                work[row][col] -= ratio * work[step][col]
+def eliminate_to_triangular(a, n):
+    """Приводит матрицу a к верхнетреугольному виду in-place, возвращает число перестановок строк."""
+    swap_count = 0
+    for col in range(n - 1):
+        pivot_row = find_pivot_row(a, col, n)
+        if pivot_row != col:
+            a[col], a[pivot_row] = a[pivot_row], a[col]
+            swap_count += 1
 
-    sign = -1.0 if swaps % 2 else 1.0
-    return sign * running_det
+        pivot = a[col][col]
+        row = col + 1
+        while row < n:
+            factor = a[row][col] / pivot
+            j = col
+            while j < n:
+                a[row][j] = a[row][j] - factor * a[col][j]
+                j += 1
+            row += 1
+    return swap_count
+
+
+def determinant_gauss(a, n):
+    work = copy_matrix(a, n)
+    swap_count = eliminate_to_triangular(work, n)
+
+    product = 1.0
+    for i in range(n):
+        product *= work[i][i]
+
+    if swap_count % 2 == 1:
+        product = -product
+
+    return product, work, swap_count
 
 
 def main():
@@ -624,11 +683,17 @@ def main():
     print("Задание 6.2.2. Вариант 10. Определитель методом Гаусса.")
     print("Входные данные:")
     for row in MATRIX_A:
-        print("   ", [f"{v:9.4f}" for v in row])
+        cells = ", ".join(f"{v:.4f}" for v in row)
+        print(f"    | {cells} |")
     print("=" * 60)
-    print()
 
-    det = determinant_by_running_product(MATRIX_A)
+    det, triangular, swap_count = determinant_gauss(MATRIX_A, N)
+
+    print(f"\nПеречислений строк выполнено: {swap_count}")
+    print("Треугольная матрица после прямого хода:")
+    for row in triangular:
+        cells = ", ".join(f"{v:9.4f}" for v in row)
+        print(f"    | {cells} |")
 
     print("\nВыходные данные:")
     print(f"  det(A) = {det:.6f}")
@@ -638,21 +703,17 @@ if __name__ == "__main__":
     main()
 ```
 
-### А.4 Задание 6.2.3 — Обратная матрица (метод Гаусса)
+### А.4 Задание 6.2.3 — Обратная матрица (метод Гаусса-Жордана)
 
 Файл: `lab1/task_6_2_3.py`
 
 ```python
 """
-Задание 6.2.3 — Вычисление обратной матрицы методом Гаусса-Жордана.
+Задание 6.2.3 - Вычисление обратной матрицы методом Гаусса-Жордана.
 Вариант 10: матрица из задания 6.2.1.
-
-В отличие от задания 6.2.1 (прямой ход + обратная подстановка), здесь
-применяется полная схема Гаусса-Жордана: расширенная матрица [A | E]
-приводится сразу к виду [E | A^-1] — каждый ведущий столбец обнуляется
-не только ниже, но и выше диагонали, обратная подстановка не нужна.
 """
 
+N = 4
 MATRIX_A = [
     [7.9, 5.6, 5.7, -7.2],
     [8.5, -4.8, 0.8, 3.5],
@@ -661,46 +722,80 @@ MATRIX_A = [
 ]
 
 
-def identity(n):
-    return [[1.0 if i == j else 0.0 for j in range(n)] for i in range(n)]
+def build_augmented(a, n):
+    aug = []
+    for i in range(n):
+        row = list(a[i])
+        for j in range(n):
+            row.append(1.0 if j == i else 0.0)
+        aug.append(row)
+    return aug
 
 
-def gauss_jordan_inverse(matrix):
-    n = len(matrix)
-    augmented = [row[:] + identity(n)[i] for i, row in enumerate(matrix)]
+def find_pivot_row(aug, col, n):
+    pivot_row = col
+    pivot_value = abs(aug[col][col])
+    row = col + 1
+    while row < n:
+        if abs(aug[row][col]) > pivot_value:
+            pivot_value = abs(aug[row][col])
+            pivot_row = row
+        row += 1
+    return pivot_row
+
+
+def eliminate_column(aug, col, n):
+    """Нормирует ведущую строку и обнуляет столбец col во всех остальных строках."""
+    pivot = aug[col][col]
+    width = 2 * n
+    j = 0
+    while j < width:
+        aug[col][j] = aug[col][j] / pivot
+        j += 1
+
+    row = 0
+    while row < n:
+        if row != col:
+            factor = aug[row][col]
+            if factor != 0.0:
+                j = 0
+                while j < width:
+                    aug[row][j] = aug[row][j] - factor * aug[col][j]
+                    j += 1
+        row += 1
+
+    return pivot
+
+
+def gauss_jordan_inverse(a, n):
+    aug = build_augmented(a, n)
 
     for col in range(n):
-        lead = max(range(col, n), key=lambda r: abs(augmented[r][col]))
-        augmented[col], augmented[lead] = augmented[lead], augmented[col]
+        pivot_row = find_pivot_row(aug, col, n)
+        if pivot_row != col:
+            aug[col], aug[pivot_row] = aug[pivot_row], aug[col]
 
-        pivot = augmented[col][col]
-        augmented[col] = [value / pivot for value in augmented[col]]
-
-        for row in range(n):
-            if row == col:
-                continue
-            factor = augmented[row][col]
-            if factor == 0.0:
-                continue
-            augmented[row] = [
-                augmented[row][k] - factor * augmented[col][k]
-                for k in range(2 * n)
-            ]
-
+        pivot = eliminate_column(aug, col, n)
         print(f"  Шаг {col + 1}: столбец {col + 1} приведён к единичному виду "
               f"(ведущий элемент до нормировки = {pivot:.6f})")
 
-    return [row[n:] for row in augmented]
+    inverse = []
+    for row in aug:
+        inverse.append(row[n:])
+    return inverse
 
 
-def max_absolute_deviation(matrix, matrix_inv):
-    n = len(matrix)
+def max_deviation_from_identity(a, a_inv, n):
     worst = 0.0
     for i in range(n):
         for j in range(n):
-            product_ij = sum(matrix[i][k] * matrix_inv[k][j] for k in range(n))
+            s = 0.0
+            for k in range(n):
+                s += a[i][k] * a_inv[k][j]
             target = 1.0 if i == j else 0.0
-            worst = max(worst, abs(product_ij - target))
+            diff = abs(s - target)
+            if diff > worst:
+                worst = diff
     return worst
 
 
@@ -709,20 +804,23 @@ def main():
     print("Задание 6.2.3. Вариант 10. Обратная матрица (Гаусс-Жордан).")
     print("Входные данные:")
     for row in MATRIX_A:
-        print("   ", [f"{v:10.6f}" for v in row])
+        cells = ", ".join(f"{v:10.6f}" for v in row)
+        print(f"    | {cells} |")
     print("=" * 60)
 
-    inv_a = gauss_jordan_inverse(MATRIX_A)
+    inv_a = gauss_jordan_inverse(MATRIX_A, N)
 
     print("\nВыходные данные:")
     print("  A^-1:")
     for row in inv_a:
-        print("   ", [f"{v:10.6f}" for v in row])
+        cells = ", ".join(f"{v:10.6f}" for v in row)
+        print(f"    | {cells} |")
 
-    deviation = max_absolute_deviation(MATRIX_A, inv_a)
+    deviation = max_deviation_from_identity(MATRIX_A, inv_a, N)
     print(f"  невязка max|A*A^-1 - E| = {deviation:.3e}")
 
 
 if __name__ == "__main__":
     main()
 ```
+

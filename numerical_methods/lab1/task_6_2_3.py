@@ -1,13 +1,9 @@
 """
-Задание 6.2.3 — Вычисление обратной матрицы методом Гаусса-Жордана.
+Задание 6.2.3 - Вычисление обратной матрицы методом Гаусса-Жордана.
 Вариант 10: матрица из задания 6.2.1.
-
-В отличие от задания 6.2.1 (прямой ход + обратная подстановка), здесь
-применяется полная схема Гаусса-Жордана: расширенная матрица [A | E]
-приводится сразу к виду [E | A^-1] — каждый ведущий столбец обнуляется
-не только ниже, но и выше диагонали, обратная подстановка не нужна.
 """
 
+N = 4
 MATRIX_A = [
     [7.9, 5.6, 5.7, -7.2],
     [8.5, -4.8, 0.8, 3.5],
@@ -16,46 +12,80 @@ MATRIX_A = [
 ]
 
 
-def identity(n):
-    return [[1.0 if i == j else 0.0 for j in range(n)] for i in range(n)]
+def build_augmented(a, n):
+    aug = []
+    for i in range(n):
+        row = list(a[i])
+        for j in range(n):
+            row.append(1.0 if j == i else 0.0)
+        aug.append(row)
+    return aug
 
 
-def gauss_jordan_inverse(matrix):
-    n = len(matrix)
-    augmented = [row[:] + identity(n)[i] for i, row in enumerate(matrix)]
+def find_pivot_row(aug, col, n):
+    pivot_row = col
+    pivot_value = abs(aug[col][col])
+    row = col + 1
+    while row < n:
+        if abs(aug[row][col]) > pivot_value:
+            pivot_value = abs(aug[row][col])
+            pivot_row = row
+        row += 1
+    return pivot_row
+
+
+def eliminate_column(aug, col, n):
+    """Нормирует ведущую строку и обнуляет столбец col во всех остальных строках."""
+    pivot = aug[col][col]
+    width = 2 * n
+    j = 0
+    while j < width:
+        aug[col][j] = aug[col][j] / pivot
+        j += 1
+
+    row = 0
+    while row < n:
+        if row != col:
+            factor = aug[row][col]
+            if factor != 0.0:
+                j = 0
+                while j < width:
+                    aug[row][j] = aug[row][j] - factor * aug[col][j]
+                    j += 1
+        row += 1
+
+    return pivot
+
+
+def gauss_jordan_inverse(a, n):
+    aug = build_augmented(a, n)
 
     for col in range(n):
-        lead = max(range(col, n), key=lambda r: abs(augmented[r][col]))
-        augmented[col], augmented[lead] = augmented[lead], augmented[col]
+        pivot_row = find_pivot_row(aug, col, n)
+        if pivot_row != col:
+            aug[col], aug[pivot_row] = aug[pivot_row], aug[col]
 
-        pivot = augmented[col][col]
-        augmented[col] = [value / pivot for value in augmented[col]]
-
-        for row in range(n):
-            if row == col:
-                continue
-            factor = augmented[row][col]
-            if factor == 0.0:
-                continue
-            augmented[row] = [
-                augmented[row][k] - factor * augmented[col][k]
-                for k in range(2 * n)
-            ]
-
+        pivot = eliminate_column(aug, col, n)
         print(f"  Шаг {col + 1}: столбец {col + 1} приведён к единичному виду "
               f"(ведущий элемент до нормировки = {pivot:.6f})")
 
-    return [row[n:] for row in augmented]
+    inverse = []
+    for row in aug:
+        inverse.append(row[n:])
+    return inverse
 
 
-def max_absolute_deviation(matrix, matrix_inv):
-    n = len(matrix)
+def max_deviation_from_identity(a, a_inv, n):
     worst = 0.0
     for i in range(n):
         for j in range(n):
-            product_ij = sum(matrix[i][k] * matrix_inv[k][j] for k in range(n))
+            s = 0.0
+            for k in range(n):
+                s += a[i][k] * a_inv[k][j]
             target = 1.0 if i == j else 0.0
-            worst = max(worst, abs(product_ij - target))
+            diff = abs(s - target)
+            if diff > worst:
+                worst = diff
     return worst
 
 
@@ -64,17 +94,19 @@ def main():
     print("Задание 6.2.3. Вариант 10. Обратная матрица (Гаусс-Жордан).")
     print("Входные данные:")
     for row in MATRIX_A:
-        print("   ", [f"{v:10.6f}" for v in row])
+        cells = ", ".join(f"{v:10.6f}" for v in row)
+        print(f"    | {cells} |")
     print("=" * 60)
 
-    inv_a = gauss_jordan_inverse(MATRIX_A)
+    inv_a = gauss_jordan_inverse(MATRIX_A, N)
 
     print("\nВыходные данные:")
     print("  A^-1:")
     for row in inv_a:
-        print("   ", [f"{v:10.6f}" for v in row])
+        cells = ", ".join(f"{v:10.6f}" for v in row)
+        print(f"    | {cells} |")
 
-    deviation = max_absolute_deviation(MATRIX_A, inv_a)
+    deviation = max_deviation_from_identity(MATRIX_A, inv_a, N)
     print(f"  невязка max|A*A^-1 - E| = {deviation:.3e}")
 
 
