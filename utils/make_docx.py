@@ -201,6 +201,53 @@ def add_page_numbers(doc):
         s.first_page_footer.is_linked_to_previous = False
 
 
+def add_toc_field(doc):
+    """Заменяет ручной список под заголовком «ОГЛАВЛЕНИЕ» настоящим полем
+    Word TOC (точечный заполнитель + номера страниц; обновляется в Word
+    клавишей F9 после открытия документа, п.5.2 ОС ТУСУР 01-2021)."""
+    paras = doc.paragraphs
+    heading_idx = None
+    for i, p in enumerate(paras):
+        if (p.style.name or "").lower().startswith("heading") and \
+                p.text.strip().upper() == "ОГЛАВЛЕНИЕ":
+            heading_idx = i
+            break
+    if heading_idx is None:
+        return
+    end_idx = len(paras)
+    for i in range(heading_idx + 1, len(paras)):
+        if (paras[i].style.name or "").lower() == "heading 2":
+            end_idx = i
+            break
+    to_remove = paras[heading_idx + 1:end_idx]
+    if not to_remove:
+        return
+    anchor = to_remove[0]
+    for p in to_remove[1:]:
+        p._element.getparent().remove(p._element)
+    for r in list(anchor.runs):
+        r._element.getparent().remove(r._element)
+    anchor.paragraph_format.first_line_indent = Cm(0)
+    fld_begin = OxmlElement("w:fldChar")
+    fld_begin.set(qn("w:fldCharType"), "begin")
+    instr = OxmlElement("w:instrText")
+    instr.set(qn("xml:space"), "preserve")
+    instr.text = 'TOC \\o "1-3" \\h \\z \\u'
+    fld_sep = OxmlElement("w:fldChar")
+    fld_sep.set(qn("w:fldCharType"), "separate")
+    placeholder = OxmlElement("w:t")
+    placeholder.text = "Обновите оглавление в Word (F9)."
+    fld_end = OxmlElement("w:fldChar")
+    fld_end.set(qn("w:fldCharType"), "end")
+    run = anchor.add_run()
+    run._element.append(fld_begin)
+    run._element.append(instr)
+    run._element.append(fld_sep)
+    run._element.append(placeholder)
+    run._element.append(fld_end)
+    set_run_font(run)
+
+
 def style_titlepage(doc):
     """Центрирует титульный лист по ОС ТУСУР 01-2021, прил. Б; удаляет служебные метки."""
     paras = doc.paragraphs
@@ -262,6 +309,7 @@ def main():
     style_titlepage(doc)
     style_tables(doc)
     add_page_numbers(doc)
+    add_toc_field(doc)
     doc.save(str(out))
 
     tmp_md.unlink(missing_ok=True)

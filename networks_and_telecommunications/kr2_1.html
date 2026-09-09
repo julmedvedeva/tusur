@@ -1,0 +1,1992 @@
+<html xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="ru" xml:lang="ru"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="https://study.tusur.ru/testing/theme/standard/styles.php">
+<link rel="stylesheet" type="text/css" href="https://study.tusur.ru/testing/theme/tcde_new/styles.php">
+
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="https://study.tusur.ru/testing/theme/standard/styles_ie7.css" />
+<![endif]-->
+<!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="https://study.tusur.ru/testing/theme/standard/styles_ie6.css" />
+<![endif]-->
+
+
+    <meta name="keywords" content="moodle, Контрольная работа № 2 по дисциплине 'Сети передачи данных': Контрольная работа № 2 по дисциплине 'Сети передачи данных' ">
+    <title>Контрольная работа № 2 по дисциплине 'Сети передачи данных': Контрольная работа № 2 по дисциплине 'Сети передачи данных'</title>
+    <link rel="shortcut icon" href="https://study.tusur.ru/testing/theme/tcde_new/tcde.ico">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=MML_HTMLorMML-full"></script>
+	<script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/jquery-1.4.2.min.js"></script>
+	<link type="text/css" href="https://study.tusur.ru/testing/theme/tcde_new/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet">
+	<script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/js/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/js/jquery.form.js"></script>
+	<script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/fdo.js"></script>
+	<link type="text/css" href="https://study.tusur.ru/testing/theme/tcde_new/tests.css" rel="stylesheet">
+	<link type="text/css" href="https://study.tusur.ru/testing/theme/tcde_new/ssv.css" rel="stylesheet">
+    <!--<style type="text/css">/*<![CDATA[*/ body{behavior:url(https://study.tusur.ru/testing/lib/csshover.htc);} /*]]>*/</style>-->
+
+<script type="text/javascript" src="https://study.tusur.ru/testing/lib/javascript-static.js"></script>
+<script type="text/javascript" src="https://study.tusur.ru/testing/lib/javascript-mod.php"></script>
+<script type="text/javascript" src="https://study.tusur.ru/testing/lib/overlib/overlib.js"></script>
+<script type="text/javascript" src="https://study.tusur.ru/testing/lib/overlib/overlib_cssstyle.js"></script>
+<script type="text/javascript" src="https://study.tusur.ru/testing/lib/cookies.js"></script>
+<script type="text/javascript" src="https://study.tusur.ru/testing/lib/ufo.js"></script>
+<script type="text/javascript" src="https://study.tusur.ru/testing/lib/dropdown.js"></script>
+
+<script type="text/javascript" defer="defer">
+//<![CDATA[
+setTimeout('fix_column_widths()', 20);
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+function openpopup(url, name, options, fullscreen) {
+    var fullurl = "https://study.tusur.ru/testing" + url;
+    var windowobj = window.open(fullurl, name, options);
+    if (!windowobj) {
+        return true;
+    }
+    if (fullscreen) {
+        windowobj.moveTo(0, 0);
+        windowobj.resizeTo(screen.availWidth, screen.availHeight);
+    }
+    windowobj.focus();
+    return false;
+}
+
+function uncheckall() {
+    var inputs = document.getElementsByTagName('input');
+    for(var i = 0; i < inputs.length; i++) {
+        inputs[i].checked = false;
+    }
+}
+
+function checkall() {
+    var inputs = document.getElementsByTagName('input');
+    for(var i = 0; i < inputs.length; i++) {
+        inputs[i].checked = true;
+    }
+}
+
+function inserttext(text) {
+  text = ' ' + text + ' ';
+  if ( opener.document.forms['theform'].message.createTextRange && opener.document.forms['theform'].message.caretPos) {
+    var caretPos = opener.document.forms['theform'].message.caretPos;
+    caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : text;
+  } else {
+    opener.document.forms['theform'].message.value  += text;
+  }
+  opener.document.forms['theform'].message.focus();
+}
+
+function getElementsByClassName(oElm, strTagName, oClassNames){
+	var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
+	var arrReturnElements = new Array();
+	var arrRegExpClassNames = new Array();
+	if(typeof oClassNames == "object"){
+		for(var i=0; i<oClassNames.length; i++){
+			arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames[i].replace(/\-/g, "\\-") + "(\\s|$)"));
+		}
+	}
+	else{
+		arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames.replace(/\-/g, "\\-") + "(\\s|$)"));
+	}
+	var oElement;
+	var bMatchesAll;
+	for(var j=0; j<arrElements.length; j++){
+		oElement = arrElements[j];
+		bMatchesAll = true;
+		for(var k=0; k<arrRegExpClassNames.length; k++){
+			if(!arrRegExpClassNames[k].test(oElement.className)){
+				bMatchesAll = false;
+				break;
+			}
+		}
+		if(bMatchesAll){
+			arrReturnElements.push(oElement);
+		}
+	}
+	return (arrReturnElements)
+}
+//]]>
+</script>
+	<!-- code -->
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/lisp/highlight-lisp.js"></script>
+    <link rel="stylesheet" href="https://study.tusur.ru/testing/theme/tcde_new/code/lisp/themes/github.css">
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shCore.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushBash.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushCpp.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushCSharp.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushCss.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushDelphi.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushDiff.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushGroovy.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushJava.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushPhp.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushPlain.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushPython.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushRuby.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushScala.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushSql.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushVb.js"></script>
+    <script type="text/javascript" src="https://study.tusur.ru/testing/theme/tcde_new/code/scripts/shBrushXml.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://study.tusur.ru/testing/theme/tcde_new/code/styles/shCore.css">
+    <link type="text/css" rel="stylesheet" href="https://study.tusur.ru/testing/theme/tcde_new/code/styles/shThemeDefault.css">
+    <script type="text/javascript">
+        SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+        SyntaxHighlighter.all();
+    </script>
+    <!-- /code -->
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">div.MathJax_MathML {text-align: center; margin: .75em 0px; display: block!important}
+.MathJax_MathML {font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+span.MathJax_MathML {display: inline!important}
+.MathJax_mmlExBox {display: block!important; overflow: hidden; height: 1px; width: 60ex; min-height: 0; max-height: none; padding: 0; border: 0; margin: 0}
+[class="MJX-tex-oldstyle"] {font-family: MathJax_Caligraphic, MathJax_Caligraphic-WEB}
+[class="MJX-tex-oldstyle-bold"] {font-family: MathJax_Caligraphic, MathJax_Caligraphic-WEB; font-weight: bold}
+[class="MJX-tex-caligraphic"] {font-family: MathJax_Caligraphic, MathJax_Caligraphic-WEB}
+[class="MJX-tex-caligraphic-bold"] {font-family: MathJax_Caligraphic, MathJax_Caligraphic-WEB; font-weight: bold}
+@font-face /*1*/ {font-family: MathJax_Caligraphic-WEB; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf')}
+@font-face /*2*/ {font-family: MathJax_Caligraphic-WEB; font-weight: bold; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Bold.otf')}
+[mathvariant="double-struck"] {font-family: MathJax_AMS, MathJax_AMS-WEB}
+[mathvariant="script"] {font-family: MathJax_Script, MathJax_Script-WEB}
+[mathvariant="fraktur"] {font-family: MathJax_Fraktur, MathJax_Fraktur-WEB}
+[mathvariant="bold-script"] {font-family: MathJax_Script, MathJax_Caligraphic-WEB; font-weight: bold}
+[mathvariant="bold-fraktur"] {font-family: MathJax_Fraktur, MathJax_Fraktur-WEB; font-weight: bold}
+[mathvariant="monospace"] {font-family: monospace}
+[mathvariant="sans-serif"] {font-family: sans-serif}
+[mathvariant="bold-sans-serif"] {font-family: sans-serif; font-weight: bold}
+[mathvariant="sans-serif-italic"] {font-family: sans-serif; font-style: italic}
+[mathvariant="sans-serif-bold-italic"] {font-family: sans-serif; font-style: italic; font-weight: bold}
+@font-face /*3*/ {font-family: MathJax_AMS-WEB; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/fonts/HTML-CSS/TeX/otf/MathJax_AMS-Regular.otf')}
+@font-face /*4*/ {font-family: MathJax_Script-WEB; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/fonts/HTML-CSS/TeX/otf/MathJax_Script-Regular.otf')}
+@font-face /*5*/ {font-family: MathJax_Fraktur-WEB; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Regular.otf')}
+@font-face /*6*/ {font-family: MathJax_Fraktur-WEB; font-weight: bold; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Bold.otf')}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax_LineBox {display: table!important}
+.MathJax_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Blank; src: url('about:blank')}
+</style></head>
+
+<body class="mod-quiz course-1716 dir-ltr lang-ru_utf8" id="mod-quiz-review"><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+
+
+<style>/* svv.css Стили для вопросов */
+
+#block0101{
+  width: 100%;
+}
+
+/* Для простых маленьких таблиц: class="ssv_table_16px_td" */
+table.ssv_table_16px_td td {
+padding: 0px 16px 0px 16px;
+
+}
+
+p.ssv_tablecaption{
+font-style: italic;
+color: #838383;
+}
+
+table.ssv_table1 p{
+margin-top: 0px !important;
+margin-bottom: 0px !important;
+}</style>
+
+<style type="text/css">
+        .maz-red{
+                background-color: #f2dede;
+                border-color: #eed3d7;
+                color: #b94a48;
+
+                padding: 8px 35px 8px 14px;
+                text-shadow: 0 1px 0 rgba(255,255,255,.5);
+                border: 1px solid #fbeed5;
+                text-align: center;
+
+                display: none;
+        }
+    </style>
+<div class="maz-red">Уважаемые студенты! В связи с плановыми техническими работами 21.03.17 с 9:00 до 10:00 (мск) сайт системы дистанционного обучения будет недоступен. Рекомендуем Вам завершить выполнение всех тестовых работ до 9:00 (мск).</div>
+<div id="page">
+
+<div id="top">
+        <div class="head">
+            <div class="logo">
+                <a href="/testing/">
+                    <img class="align_center" src="https://study.tusur.ru/testing/theme/tcde_new/tcde_pix/tcde-logo.png">
+                    <span class="align_center padding_logo" href="/testing/">ONLINE ТУСУР</span>
+                </a>
+            </div>
+            <span class="align_center padding_logo_text">Онлайн-тестирование</span>
+        </div>
+    </div>
+
+    <div id="header" class="1 clearfix">
+        <!--<h1 class="headermain">Контрольная работа № 2 по дисциплине 'Сети передачи данных' </h1>-->
+		<div class="logininfo" style="float:left;"><b>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="//study.tusur.ru/testing/mod/resource/view.php?id=10525">Правила выполнения теста</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="//study.tusur.ru/study/plan/">Учебный план</a></b></div>
+        <div class="headermenu" style="display: none;"><div class="logininfo">Вы зашли под именем <a href="https://study.tusur.ru/testing/user/view.php?id=52853&amp;course=1716">Юлия Евгеньевна Медведева</a>  (<a href="https://study.tusur.ru/testing/login/logout.php?sesskey=bo6hSbzHRK">Выход</a>)</div></div>
+    </div>    <div class="navbar clearfix">
+        <div class="breadcrumb"><h2 class="accesshide ">Вы здесь</h2> <ul>
+<li class="first" style="display: none;"><a onclick="this.target='_top'" href="https://study.tusur.ru/testing/">Факультет дистанционного обучения ТУСУР (Онлайн-тестирование)</a></li><li style="display: none;"> <span class="accesshide ">/&nbsp;</span><span class="arrow sep">▶</span> <a onclick="this.target='_top'" href="https://study.tusur.ru/testing/course/view.php?id=1716">Контрольная работа № 2 по дисциплине 'Сети передачи данных'</a></li><li style="display: none;"> <span class="accesshide ">/&nbsp;</span><span class="arrow sep">▶</span> <a onclick="this.target='_top'" href="https://study.tusur.ru/testing/mod/quiz/index.php?id=1716">Тесты</a></li><li> <span class="accesshide ">/&nbsp;</span><span class="arrow sep">▶</span> <a onclick="this.target='_top'" href="https://study.tusur.ru/testing/mod/quiz/view.php?id=10644">Контрольная работа № 2 по дисциплине 'Сети передачи данных'</a></li><li style="display: none;"> <span class="accesshide ">/&nbsp;</span><span class="arrow sep">▶</span> Обзор попытки 2</li></ul></div>
+        <div class="navbutton">&nbsp;</div>
+    </div>
+    <!-- END OF HEADER -->
+    <div id="content">    <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div><h2 class="main">Контрольная работа № 2 по дисциплине 'Сети передачи данных'</h2><h2 class="main">Обзор попытки 2</h2>
+<div class="controls">
+<div class="singlebutton"><form action="view.php" method="get"><div><input type="hidden" name="id" value="10644"><input type="submit" value="Закончить обзор"></div></form></div></div>
+<table class="generaltable generalbox quizreviewsummary "><tbody>
+<tr><th scope="row" class="cell">Тест начат</th><td class="cell">Среда 9 Сентябрь 2026, 00:18</td></tr>
+<tr><th scope="row" class="cell">Завершен</th><td class="cell">Среда 9 Сентябрь 2026, 00:25</td></tr>
+<tr><th scope="row" class="cell">Прошло времени</th><td class="cell">6 мин 51 сек</td></tr>
+<tr><th scope="row" class="cell">Правильных ответов из </th><td class="cell">21/25</td></tr>
+<tr><th scope="row" class="cell">Оценка</th><td class="cell"><b>84</b> из максимума 100 (<b>84</b>%)</td></tr>
+<tr><th scope="row" class="cell">Результат</th><td class="cell"><p>Зачет</p></td></tr>
+</tbody></table>
+<input type="hidden" id="lismo-attempt" value="1342975"><input type="hidden" id="lismo-user" value="xx221mue"><input type="hidden" id="lismo-mail" value="xx221mue@study.tusur.ru"><input type="hidden" id="lismo-course" value="1716"><div id="q323263" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>1</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Квантование по уровню – это замена мгновенного значения сигнала … значением.</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323320_755952" name="resp323320_755952" checked="checked" type="checkbox" value="755952">        </td>
+        <td class="c1 text ">
+          <label for="resp323320_755952">
+            ближайшим целочисленным                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323320_755953" name="resp323320_755953" type="checkbox" value="755953">        </td>
+        <td class="c1 text ">
+          <label for="resp323320_755953">
+            максимальным                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323320_755954" name="resp323320_755954" type="checkbox" value="755954">        </td>
+        <td class="c1 text ">
+          <label for="resp323320_755954">
+            минимальным                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323320_755955" name="resp323320_755955" type="checkbox" value="755955">        </td>
+        <td class="c1 text ">
+          <label for="resp323320_755955">
+            средним                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323203" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>2</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Какой вид интеграции используется в IP-TV?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323336_755692" name="resp323336_755692" type="checkbox" value="755692">        </td>
+        <td class="c1 text ">
+          <label for="resp323336_755692">
+            Цифровая телефония и передача данных с ВРК                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323336_755690" name="resp323336_755690" type="checkbox" value="755690">        </td>
+        <td class="c1 text ">
+          <label for="resp323336_755690">
+            Аналоговая телефония и пакетная передача данных                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323336_755691" name="resp323336_755691" checked="checked" type="checkbox" value="755691">        </td>
+        <td class="c1 text ">
+          <label for="resp323336_755691">
+            Цифровое телевидение и пакетная передача данных                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323336_755693" name="resp323336_755693" type="checkbox" value="755693">        </td>
+        <td class="c1 text ">
+          <label for="resp323336_755693">
+            Аналоговое телевидение и пакетная передача данных                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323336_755694" name="resp323336_755694" type="checkbox" value="755694">        </td>
+        <td class="c1 text ">
+          <label for="resp323336_755694">
+            Пакетная передача телефонных сигналов и данных                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323246" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>3</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Определите НЕПРАВИЛЬНЫЙ IP-адрес.</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323335_755882" name="resp323335_755882" checked="checked" type="checkbox" value="755882">        </td>
+        <td class="c1 text ">
+          <label for="resp323335_755882">
+            192.300.12.50                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323335_755881" name="resp323335_755881" type="checkbox" value="755881">        </td>
+        <td class="c1 text ">
+          <label for="resp323335_755881">
+            192.200.12.50                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323335_755879" name="resp323335_755879" type="checkbox" value="755879">        </td>
+        <td class="c1 text ">
+          <label for="resp323335_755879">
+            192.50.12.50                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323335_755880" name="resp323335_755880" type="checkbox" value="755880">        </td>
+        <td class="c1 text ">
+          <label for="resp323335_755880">
+            192.100.12.50                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323292" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>4</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Какова максимальная скорость передачи в ISDN?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323333_756080" name="resp323333_756080" type="checkbox" value="756080">        </td>
+        <td class="c1 text ">
+          <label for="resp323333_756080">
+            192 Кбит/с                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323333_756077" name="resp323333_756077" type="checkbox" value="756077">        </td>
+        <td class="c1 text ">
+          <label for="resp323333_756077">
+            64 Кбит/с                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323333_756078" name="resp323333_756078" type="checkbox" value="756078">        </td>
+        <td class="c1 text ">
+          <label for="resp323333_756078">
+            128 Кбит/с                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323333_756081" name="resp323333_756081" type="checkbox" value="756081">        </td>
+        <td class="c1 text ">
+          <label for="resp323333_756081">
+            256 Кбит/с                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323333_756079" name="resp323333_756079" checked="checked" type="checkbox" value="756079">        </td>
+        <td class="c1 text ">
+          <label for="resp323333_756079">
+            144 Кбит/с                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323301" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>5</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Как связана скорость передачи информации с шириной спектра сигнала?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323340_756120" name="resp323340_756120" type="checkbox" value="756120">        </td>
+        <td class="c1 text ">
+          <label for="resp323340_756120">
+            Обратно пропорционально                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323340_756119" name="resp323340_756119" checked="checked" type="checkbox" value="756119">        </td>
+        <td class="c1 text ">
+          <label for="resp323340_756119">
+            Пропорционально                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323340_756122" name="resp323340_756122" type="checkbox" value="756122">        </td>
+        <td class="c1 text ">
+          <label for="resp323340_756122">
+            Логарифмически                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323340_756121" name="resp323340_756121" type="checkbox" value="756121">        </td>
+        <td class="c1 text ">
+          <label for="resp323340_756121">
+            Квадратично                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323195" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>6</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Эталонная модель взаимодействия открытых систем содержит семь уровней. Какие функции эталонной модели выполняются на транспортном уровне?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323328_755658" name="resp323328_755658" type="checkbox" value="755658">        </td>
+        <td class="c1 text ">
+          <label for="resp323328_755658">
+            Обеспечение необходимого взаимодействия со средой передачи                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323328_755654" name="resp323328_755654" type="checkbox" value="755654">        </td>
+        <td class="c1 text ">
+          <label for="resp323328_755654">
+            Организация и проведение сигналов между прикладными процессами                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323328_755655" name="resp323328_755655" checked="checked" type="checkbox" value="755655">        </td>
+        <td class="c1 text ">
+          <label for="resp323328_755655">
+            Управление соединением, управление ошибками, сетевой сервис                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323328_755657" name="resp323328_755657" type="checkbox" value="755657">        </td>
+        <td class="c1 text ">
+          <label for="resp323328_755657">
+            Установление и подтверждение соединений, управление ошибками (проверка чётности или контрольных сумм)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323328_755656" name="resp323328_755656" type="checkbox" value="755656">        </td>
+        <td class="c1 text ">
+          <label for="resp323328_755656">
+            Маршрутизация, адресация, установление и освобождение вызовов, сегментирование и объединение блоков данных                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323242" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>7</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Укажите режим работы ADSL модема.</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323337_755864" name="resp323337_755864" type="checkbox" value="755864">        </td>
+        <td class="c1 text ">
+          <label for="resp323337_755864">
+            Широковещательный                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323337_755861" name="resp323337_755861" checked="checked" type="checkbox" value="755861">        </td>
+        <td class="c1 text ">
+          <label for="resp323337_755861">
+            Ассиметричный                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323337_755860" name="resp323337_755860" type="checkbox" value="755860">        </td>
+        <td class="c1 text ">
+          <label for="resp323337_755860">
+            Симметричный                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323337_755863" name="resp323337_755863" type="checkbox" value="755863">        </td>
+        <td class="c1 text ">
+          <label for="resp323337_755863">
+            Двунаправленный                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323337_755862" name="resp323337_755862" type="checkbox" value="755862">        </td>
+        <td class="c1 text ">
+          <label for="resp323337_755862">
+            Однонаправленный                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  incorrect">Неверно</div><div class="gradingdetails">Баллов за ответ: 0/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323299" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>8</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Тактовая синхронизация предназначена для задания … передачи.</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323319_756112" name="resp323319_756112" type="checkbox" value="756112">        </td>
+        <td class="c1 text ">
+          <label for="resp323319_756112">
+            начала                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323319_756113" name="resp323319_756113" type="checkbox" value="756113">        </td>
+        <td class="c1 text ">
+          <label for="resp323319_756113">
+            окончания                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323319_756114" name="resp323319_756114" type="checkbox" value="756114">        </td>
+        <td class="c1 text ">
+          <label for="resp323319_756114">
+            времени                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323319_756111" name="resp323319_756111" checked="checked" type="checkbox" value="756111">        </td>
+        <td class="c1 text ">
+          <label for="resp323319_756111">
+            темпа                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323262" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>9</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Укажите основные свойства и достоинства технологии коммутации пакетов.</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323331_755951" name="resp323331_755951" checked="checked" type="checkbox" value="755951">        </td>
+        <td class="c1 text ">
+          <label for="resp323331_755951">
+            Высокая эффективность использования сети                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323331_755948" name="resp323331_755948" type="checkbox" value="755948">        </td>
+        <td class="c1 text ">
+          <label for="resp323331_755948">
+            Непосредственное сквозное соединение двух абонентов на время сеанса связи                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323331_755950" name="resp323331_755950" checked="checked" type="checkbox" value="755950">        </td>
+        <td class="c1 text ">
+          <label for="resp323331_755950">
+            Передача информации по различным маршрутам                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323331_755949" name="resp323331_755949" type="checkbox" value="755949">        </td>
+        <td class="c1 text ">
+          <label for="resp323331_755949">
+            Малая задержка при передаче сигналов                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323290" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>10</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>На каких длинах волн работают ВОЛС?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323324_756070" name="resp323324_756070" type="checkbox" value="756070">        </td>
+        <td class="c1 text ">
+          <label for="resp323324_756070">
+            1.4 мкм                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323324_756069" name="resp323324_756069" checked="checked" type="checkbox" value="756069">        </td>
+        <td class="c1 text ">
+          <label for="resp323324_756069">
+            1.3 мкм                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323324_756068" name="resp323324_756068" type="checkbox" value="756068">        </td>
+        <td class="c1 text ">
+          <label for="resp323324_756068">
+            1.15 мкм                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323324_756071" name="resp323324_756071" checked="checked" type="checkbox" value="756071">        </td>
+        <td class="c1 text ">
+          <label for="resp323324_756071">
+            1.55 мкм                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323212" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>11</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Какова помехоустойчивость систем связи с DSSS по отношению к мощным узкополостным помехам?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323318_755732" name="resp323318_755732" type="checkbox" value="755732">        </td>
+        <td class="c1 text ">
+          <label for="resp323318_755732">
+            Частотнонезависимая                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323318_755731" name="resp323318_755731" type="checkbox" value="755731">        </td>
+        <td class="c1 text ">
+          <label for="resp323318_755731">
+            Частотнозависимая                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323318_755730" name="resp323318_755730" checked="checked" type="checkbox" value="755730">        </td>
+        <td class="c1 text ">
+          <label for="resp323318_755730">
+            Высокая                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323318_755729" name="resp323318_755729" type="checkbox" value="755729">        </td>
+        <td class="c1 text ">
+          <label for="resp323318_755729">
+            Низкая                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323318_755733" name="resp323318_755733" type="checkbox" value="755733">        </td>
+        <td class="c1 text ">
+          <label for="resp323318_755733">
+            Зависит от погодных условий                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323188" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>12</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Каково ослабление сигнала в сети PON для 32 абонентов?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323323_755627" name="resp323323_755627" type="checkbox" value="755627">        </td>
+        <td class="c1 text ">
+          <label for="resp323323_755627">
+            27.2 дБ                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323323_755626" name="resp323323_755626" type="checkbox" value="755626">        </td>
+        <td class="c1 text ">
+          <label for="resp323323_755626">
+            23.8 дБ                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323323_755624" name="resp323323_755624" checked="checked" type="checkbox" value="755624">        </td>
+        <td class="c1 text ">
+          <label for="resp323323_755624">
+            17 дБ                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323323_755625" name="resp323323_755625" type="checkbox" value="755625">        </td>
+        <td class="c1 text ">
+          <label for="resp323323_755625">
+            20.4 дБ                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323323_755623" name="resp323323_755623" type="checkbox" value="755623">        </td>
+        <td class="c1 text ">
+          <label for="resp323323_755623">
+            13.6 дБ                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323207" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>13</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Какая задержка является критичной для услуги передачи данных?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323329_755708" name="resp323329_755708" type="checkbox" value="755708">        </td>
+        <td class="c1 text ">
+          <label for="resp323329_755708">
+            100 мс                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323329_755710" name="resp323329_755710" type="checkbox" value="755710">        </td>
+        <td class="c1 text ">
+          <label for="resp323329_755710">
+            300 мс                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323329_755711" name="resp323329_755711" type="checkbox" value="755711">        </td>
+        <td class="c1 text ">
+          <label for="resp323329_755711">
+            500 мс                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323329_755712" name="resp323329_755712" checked="checked" type="checkbox" value="755712">        </td>
+        <td class="c1 text ">
+          <label for="resp323329_755712">
+            Задержка некритична                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323329_755709" name="resp323329_755709" type="checkbox" value="755709">        </td>
+        <td class="c1 text ">
+          <label for="resp323329_755709">
+            150 мс                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323289" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>14</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Какой протокол обеспечивает минимальную задержку пакетов?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323326_756064" name="resp323326_756064" type="checkbox" value="756064">        </td>
+        <td class="c1 text ">
+          <label for="resp323326_756064">
+            Ethernet                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323326_756067" name="resp323326_756067" checked="checked" type="checkbox" value="756067">        </td>
+        <td class="c1 text ">
+          <label for="resp323326_756067">
+            UDP                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323326_756065" name="resp323326_756065" type="checkbox" value="756065">        </td>
+        <td class="c1 text ">
+          <label for="resp323326_756065">
+            ADSL                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323326_756066" name="resp323326_756066" type="checkbox" value="756066">        </td>
+        <td class="c1 text ">
+          <label for="resp323326_756066">
+            TCP                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323265" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>15</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>На каком уровне работает коммутатор (свитч) сети передачи данных?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323339_755961" name="resp323339_755961" checked="checked" type="checkbox" value="755961">        </td>
+        <td class="c1 text ">
+          <label for="resp323339_755961">
+            2                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323339_755960" name="resp323339_755960" type="checkbox" value="755960">        </td>
+        <td class="c1 text ">
+          <label for="resp323339_755960">
+            1                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323339_755962" name="resp323339_755962" type="checkbox" value="755962">        </td>
+        <td class="c1 text ">
+          <label for="resp323339_755962">
+            3                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323279" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>16</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Укажите основные причины задержки сигнала в IP-телефонии.</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323325_756022" name="resp323325_756022" type="checkbox" value="756022">        </td>
+        <td class="c1 text ">
+          <label for="resp323325_756022">
+            Обращение к серверу DNS                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323325_756021" name="resp323325_756021" type="checkbox" value="756021">        </td>
+        <td class="c1 text ">
+          <label for="resp323325_756021">
+            Запрос разрешения на передачу                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323325_756018" name="resp323325_756018" checked="checked" type="checkbox" value="756018">        </td>
+        <td class="c1 text ">
+          <label for="resp323325_756018">
+            Запись в буфере                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323325_756020" name="resp323325_756020" type="checkbox" value="756020">        </td>
+        <td class="c1 text ">
+          <label for="resp323325_756020">
+            Анализ маршрута                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323325_756019" name="resp323325_756019" checked="checked" type="checkbox" value="756019">        </td>
+        <td class="c1 text ">
+          <label for="resp323325_756019">
+            Анализ данных                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  incorrect">Неверно</div><div class="gradingdetails">Баллов за ответ: 0/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323227" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>17</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Укажите наиболее полную характеристику цифрового сигнала.</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323341_755797" name="resp323341_755797" type="checkbox" value="755797">        </td>
+        <td class="c1 text ">
+          <label for="resp323341_755797">
+            Квантование по уровню                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323341_755798" name="resp323341_755798" checked="checked" type="checkbox" value="755798">        </td>
+        <td class="c1 text ">
+          <label for="resp323341_755798">
+            Конечное количество значений сигналов во времени и по амплитуде                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323341_755796" name="resp323341_755796" type="checkbox" value="755796">        </td>
+        <td class="c1 text ">
+          <label for="resp323341_755796">
+            Дискретизация во времени                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323341_755799" name="resp323341_755799" type="checkbox" value="755799">        </td>
+        <td class="c1 text ">
+          <label for="resp323341_755799">
+            Двоичный код                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323291" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>18</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Какая технология физического уровня используется в стандарте IEEE 802.11b?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323334_756075" name="resp323334_756075" checked="checked" type="checkbox" value="756075">        </td>
+        <td class="c1 text ">
+          <label for="resp323334_756075">
+            DSSS                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323334_756072" name="resp323334_756072" type="checkbox" value="756072">        </td>
+        <td class="c1 text ">
+          <label for="resp323334_756072">
+            OFDM                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323334_756073" name="resp323334_756073" type="checkbox" value="756073">        </td>
+        <td class="c1 text ">
+          <label for="resp323334_756073">
+            KAM-16                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323334_756074" name="resp323334_756074" type="checkbox" value="756074">        </td>
+        <td class="c1 text ">
+          <label for="resp323334_756074">
+            FHSS                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323334_756076" name="resp323334_756076" type="checkbox" value="756076">        </td>
+        <td class="c1 text ">
+          <label for="resp323334_756076">
+            Zig Bee                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323252" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>19</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Какому требованию НЕ удовлетворяет IP-адрес?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323330_755905" name="resp323330_755905" checked="checked" type="checkbox" value="755905">        </td>
+        <td class="c1 text ">
+          <label for="resp323330_755905">
+            Удобство интерпретации                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323330_755908" name="resp323330_755908" type="checkbox" value="755908">        </td>
+        <td class="c1 text ">
+          <label for="resp323330_755908">
+            Иерархичность                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323330_755906" name="resp323330_755906" type="checkbox" value="755906">        </td>
+        <td class="c1 text ">
+          <label for="resp323330_755906">
+            Постоянный размер                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323330_755907" name="resp323330_755907" type="checkbox" value="755907">        </td>
+        <td class="c1 text ">
+          <label for="resp323330_755907">
+            Уникальность                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323225" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>20</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Укажите задержку сигнала в линии связи, начиная с которой ухудшается качество передачи информации в аналоговой телефонии.</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323332_755787" name="resp323332_755787" checked="checked" type="checkbox" value="755787">        </td>
+        <td class="c1 text ">
+          <label for="resp323332_755787">
+            100 мс                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323332_755789" name="resp323332_755789" type="checkbox" value="755789">        </td>
+        <td class="c1 text ">
+          <label for="resp323332_755789">
+            500 мс                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323332_755790" name="resp323332_755790" type="checkbox" value="755790">        </td>
+        <td class="c1 text ">
+          <label for="resp323332_755790">
+            Задержка не влияет на качество передачи информации.                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323332_755788" name="resp323332_755788" type="checkbox" value="755788">        </td>
+        <td class="c1 text ">
+          <label for="resp323332_755788">
+            250 мс                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  incorrect">Неверно</div><div class="gradingdetails">Баллов за ответ: 0/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323220" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>21</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Укажите размер МАС-адреса.</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323338_755767" name="resp323338_755767" type="checkbox" value="755767">        </td>
+        <td class="c1 text ">
+          <label for="resp323338_755767">
+            32 бита                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323338_755766" name="resp323338_755766" type="checkbox" value="755766">        </td>
+        <td class="c1 text ">
+          <label for="resp323338_755766">
+            16 бит                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323338_755769" name="resp323338_755769" type="checkbox" value="755769">        </td>
+        <td class="c1 text ">
+          <label for="resp323338_755769">
+            64 бита                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323338_755768" name="resp323338_755768" checked="checked" type="checkbox" value="755768">        </td>
+        <td class="c1 text ">
+          <label for="resp323338_755768">
+            48 бит                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323216" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>22</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Коммутация пакетов относится к … информации.</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323342_755751" name="resp323342_755751" type="checkbox" value="755751">        </td>
+        <td class="c1 text ">
+          <label for="resp323342_755751">
+            записи                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323342_755749" name="resp323342_755749" type="checkbox" value="755749">        </td>
+        <td class="c1 text ">
+          <label for="resp323342_755749">
+            распределению                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323342_755750" name="resp323342_755750" type="checkbox" value="755750">        </td>
+        <td class="c1 text ">
+          <label for="resp323342_755750">
+            сбору                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323342_755748" name="resp323342_755748" checked="checked" type="checkbox" value="755748">        </td>
+        <td class="c1 text ">
+          <label for="resp323342_755748">
+            передаче                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  incorrect">Неверно</div><div class="gradingdetails">Баллов за ответ: 0/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323294" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>23</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Какой вид интеграции используется в технологии ADSL?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323322_756089" name="resp323322_756089" type="checkbox" value="756089">        </td>
+        <td class="c1 text ">
+          <label for="resp323322_756089">
+            Цифровая телефония и передача данных с ВРК                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323322_756087" name="resp323322_756087" checked="checked" type="checkbox" value="756087">        </td>
+        <td class="c1 text ">
+          <label for="resp323322_756087">
+            Аналоговая телефония и пакетная передача данных                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323322_756088" name="resp323322_756088" type="checkbox" value="756088">        </td>
+        <td class="c1 text ">
+          <label for="resp323322_756088">
+            Цифровое телевидение и пакетная передача данных                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323322_756090" name="resp323322_756090" type="checkbox" value="756090">        </td>
+        <td class="c1 text ">
+          <label for="resp323322_756090">
+            Аналоговое телевидение и пакетная передача данных                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323322_756091" name="resp323322_756091" type="checkbox" value="756091">        </td>
+        <td class="c1 text ">
+          <label for="resp323322_756091">
+            Пакетная передача телефонных сигналов и данных                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323267" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>24</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Какова несущая частота оптического сигнала, если длина волны излучения равна 1 мкм?</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323327_755969" name="resp323327_755969" type="checkbox" value="755969">        </td>
+        <td class="c1 text ">
+          <label for="resp323327_755969">
+            200 ТГц                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323327_755968" name="resp323327_755968" checked="checked" type="checkbox" value="755968">        </td>
+        <td class="c1 text ">
+          <label for="resp323327_755968">
+            300 ТГц                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323327_755967" name="resp323327_755967" type="checkbox" value="755967">        </td>
+        <td class="c1 text ">
+          <label for="resp323327_755967">
+            500 ТГц                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323327_755970" name="resp323327_755970" type="checkbox" value="755970">        </td>
+        <td class="c1 text ">
+          <label for="resp323327_755970">
+            100 ТГц                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+<div id="q323219" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>25</span>
+          <div class="grade">
+        Правильных ответов из : 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+          <p>Дайте обоснование высокой скорости передачи информации в ВОЛС.</p>            </div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Выберите один или несколько правильных ответов:  </div>
+
+  <table class="answer">
+          <tbody><tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323321_755765" name="resp323321_755765" type="checkbox" value="755765">        </td>
+        <td class="c1 text ">
+          <label for="resp323321_755765">
+            Высокая помехоустойчивость                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323321_755763" name="resp323321_755763" type="checkbox" value="755763">        </td>
+        <td class="c1 text ">
+          <label for="resp323321_755763">
+            Низкое затухание световых колебаний                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp323321_755764" name="resp323321_755764" checked="checked" type="checkbox" value="755764">        </td>
+        <td class="c1 text ">
+          <label for="resp323321_755764">
+            Высокое значение несущей частоты                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Верно</div><div class="gradingdetails">Баллов за ответ: 1/1.</div>    </div>  </div>
+<div class="ma_help">Выберите все верные ответы (может быть несколько или один).</div></div>
+
+<div class="controls">
+<div class="singlebutton"><form action="view.php" method="get"><div><input type="hidden" name="id" value="10644"><input type="submit" value="Закончить обзор"></div></form></div></div>
+</div><div id="footer"><p>Факультет дистанционного обучения ТУСУР 2026</p></div></div>
+<script type="text/javascript">HighlightLisp.highlight_auto();</script>
+
+
+<div class="ui-dialog ui-widget ui-widget-content ui-corner-all lismo-confirm ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-lismo-help-numerical" style="display: none; z-index: 1000; outline: 0px;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-lismo-help-numerical">Рекомендации к вводу ответа</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div id="lismo-help-numerical" style="" class="ui-dialog-content ui-widget-content">
+	<iframe src="//study.tusur.ru/exams/theme/tcde_new/helpnum.html" width="819" height="342" align="left">
+    Ваш браузер не поддерживает плавающие фреймы!
+	</iframe>
+	</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Ок</span></button></div></div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all lismo-confirm ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-lismo-help-short" style="display: none; z-index: 1000; outline: 0px;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-lismo-help-short">Рекомендации к вводу ответа</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div id="lismo-help-short" style="" class="ui-dialog-content ui-widget-content">
+	<iframe src="//study.tusur.ru/exams/theme/tcde_new/helpshort.html" width="519" height="342" align="left">
+    Ваш браузер не поддерживает плавающие фреймы!
+	</iframe>
+	</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Ок</span></button></div></div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all lismo-confirm ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-lismo-help-menu" style="display: none; z-index: 1000; outline: 0px;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-lismo-help-menu">Рекомендации к вводу ответа</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div id="lismo-help-menu" style="" class="ui-dialog-content ui-widget-content">
+	<iframe src="//study.tusur.ru/exams/theme/tcde_new/helpmenu.html" width="519" height="342" align="left">
+    Ваш браузер не поддерживает плавающие фреймы!
+	</iframe>
+	</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Ок</span></button></div></div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all lismo-confirm ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-lismo-help-answer" style="display: none; z-index: 1000; outline: 0px;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-lismo-help-answer">Рекомендации к вводу ответа</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div id="lismo-help-answer" style="" class="ui-dialog-content ui-widget-content">
+	<iframe src="//study.tusur.ru/exams/theme/tcde_new/helpanswer.html" width="519" height="342" align="left">
+    Ваш браузер не поддерживает плавающие фреймы!
+	</iframe>
+	</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Ок</span></button></div></div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all  ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-1" style="display: none; z-index: 1000; outline: 0px;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-1">Отправить сообщение о технической ошибке</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div class="lismo-alert ui-dialog-content ui-widget-content" style="">Технические ошибки – это очевидные опечатки, ошибки отображения формул, рисунков, таблиц и т.п.
+Ваше сообщение будет обработано программистом без обратной связи.
+<hr>Ваш комментарий:<textarea name="quiz" style="width: 470px; height:200px;"></textarea><input type="button" value="Отправить" class="ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false"></div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all  ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-2" style="display: none; z-index: 1000; outline: 0px;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-2">Сообщение отправлено</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div class="lismo-alert1 ui-dialog-content ui-widget-content" style="">Ваше сообщение об ошибке принято к рассмотрению. Мы внесем изменения в данный вопрос в случае корректности замечаний. Спасибо!</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Ок</span></button></div></div></div><div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-size-adjust: none; font-family: STIXSizeOneSym, sans-serif;"></div></div></body></html>
