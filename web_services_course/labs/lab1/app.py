@@ -5,6 +5,7 @@ import io
 import os
 import random
 import uuid
+from datetime import datetime
 
 import matplotlib
 matplotlib.use("Agg")  # без этого падает на сервере без дисплея
@@ -12,7 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, session, url_for
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 load_dotenv()
 
@@ -56,6 +57,28 @@ def draw_cross(image, orientation, color, thickness):
         draw.rectangle([cx - thickness // 2, 0, cx + thickness // 2, h], fill=color)
     if orientation in ("horizontal", "both"):
         draw.rectangle([0, cy - thickness // 2, w, cy + thickness // 2], fill=color)
+
+    return img
+
+
+def draw_timestamp(image):
+    # штамп даты/времени создания в правом нижнем углу, с полупрозрачной подложкой для читаемости
+    img = image.convert("RGB").copy()
+    draw = ImageDraw.Draw(img)
+    w, h = img.size
+
+    text = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+    font_size = max(12, min(w, h) // 25)
+    font = ImageFont.load_default(size=font_size)
+
+    padding = font_size // 2
+    text_bbox = draw.textbbox((0, 0), text, font=font)
+    text_w, text_h = text_bbox[2] - text_bbox[0], text_bbox[3] - text_bbox[1]
+
+    x = w - text_w - padding * 2
+    y = h - text_h - padding * 2
+    draw.rectangle([x, y, w, h], fill=(0, 0, 0, 128))
+    draw.text((x + padding, y + padding), text, fill=(255, 255, 255), font=font)
 
     return img
 
@@ -124,9 +147,13 @@ def process():
     original_path = os.path.join(UPLOAD_DIR, original_name)
     result_path = os.path.join(GENERATED_DIR, result_name)
 
+    add_timestamp = request.form.get("timestamp") == "on"
+
     file.save(original_path)
     original_image = downscale_if_huge(Image.open(original_path))
     result_image = draw_cross(original_image, orientation, color, thickness)
+    if add_timestamp:
+        result_image = draw_timestamp(result_image)
     result_image.save(result_path)
 
     hist_original = histogram_png_base64(original_image, "Гистограмма: исходное изображение")
